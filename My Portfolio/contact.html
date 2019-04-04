@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Contact</title>
+    <style>
+    a {
+       background-color:white;
+       border-radius: 5px;
+       padding: 3px;
+       text-decoration: none;
+       color:black;
+       margin: 3px;
+    }
+
+    </style>
+  </head>
+  <body style="background-color: #E7E7E7">
+    <header>
+      <h1>Contact Me</h1>
+
+      <nav style="background-color: tomato; padding:10px;">
+        <a href="Index.html">Home</a>
+      </nav>
+
+    </header>
+  <form action="submit.html" method="POST">
+    <h2>Information Request</h2>
+    <label>First Name:</label> <br />
+    <input type="text" required><br />
+    <label>Last Name:</label> <br />
+    <input type="text" required><br />
+    <label>Phone Number:</label> <br />
+    <input type="text" required><br /><br />
+    <select>
+      <option selected>choose one</option>
+      <option >Morning (8am to 12pm Eastern)></option>
+      <option >Afternoon (12pm to 5pm Eastern)></option>
+      <option >Night (5pm to 8pm Eastern)></option>
+    </select>
+    <br />
+    <fieldset>
+      <legend> I am interested in... (check all that apply)</legend>
+      <input type="checkbox" id="frontEnd" name="interest" value="frontEnd">
+      <label for="frontend"> Front End Web Developement</label> <br />
+      <input type="checkbox" id="backEnd" name="interest" value="backEnd">
+      <label for="backEnd"> Back End Web Developement</label> <br />
+      <input type="checkbox" id="dataBase" name="interest" value="dataBase">
+      <label for="dataBase"> Database Design</label> <br />
+    </fieldset>
+    <fieldset>
+      <legend>I have filled in the client questionnaire form:</legend>
+      <input type="radio" id="choice1" name="questionnaire" value="yes">
+      <label for="choice1">Yes</label><br />
+      <input type="radio" id="choice2" name="questionnaire" value='no'>
+      <label for="choice2">No</label><br />
+    </fieldset>
+    <label for="info">Additional Information<label><br />
+    <textarea id="info" name="info"></textarea><br />
+    <input type="submit" name="submit" value="submit">
+
+
+
+
+
+  </form>
+  </body>
+</html>
