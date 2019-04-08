@@ -5,31 +5,19 @@ created 4-4-19
 -->
 <html lang="en">
  <head>
+   <link rel="stylesheet" type="text/css" href="style.css">
   <title>
    Sam's Portfolio
   </title>
-  <style>
-  a {
-     background-color:white;
-     border-radius: 5px;
-     padding: 3px;
-     text-decoration: none;
-     color:black;
-     margin: 3px;
-  }
-  td {
-    background-color: white;
-  }
-  </style>
  </head>
- <body style="background-color: #E7E7E7; margin:0;">
+ <body style="background-color:#E7E7E7; margin:0;">
    <header>
-     <h1> Portfolio for Sam Thomas </h1>
+     <h1 class="title"> Portfolio for Sam Thomas </h1>
 
 
 
    <!-- we will change these to links later-->
-   <nav id="main-nav"style="background-color: tomato; padding: 10px">
+   <nav id="main-nav"style="background-color: black; color:white; padding: 10px; font-weight:bold;">
      <a href="projects.html" target="_blank"> Projects</a>
      <a href="contact.html"> Contact Me</a>
      <a href="testimonial.html" target="_blank"> Testimonials</a>
@@ -37,22 +25,25 @@ created 4-4-19
    </header>
 
   <section id="main-content" style="margin:10px;">
-    <article id="about-me">
+    <div id="about-me">
       <h2> <em>About Me </em></h2>
-      <img src="../images/Sam.jpg" style="width:300px;"/>
-      <p>
-        I was born and raised in the small town of Manson, Washington. I was the third of four children. I lived in Manson through highschool but had plans of leaving my small town.
-      </p>
-      <p>
-        The summer after senior year I submitted my application to serve a two year mission for the church of Jesus Christ of Latter Days Saints. I then left that fall to New York City, my new home for the next two years of my life.
-      </p>
-      <p>
-        Following those two years I moved to Utah to begin my post secondary education. However, after one semester I felt lost. I soon decided to move back to New York to discover myself and figure out where I was headed.
-    </article>
+      <img src="../images/Sam.jpg" style="width:200px; padding-right:20px;" class="left"/>
+      <article>
+        <p >
+          I was born and raised in the small town of Manson, Washington. I was the third of four children. I lived in Manson through highschool but had plans of leaving my small town.
+        </p>
+        <p>
+          The summer after senior year I submitted my application to serve a two year mission for the church of Jesus Christ of Latter Days Saints. I then left that fall to New York City, my new home for the next two years of my life.
+        </p>
+        <p>
+          Following those two years I moved to Utah to begin my post secondary education. However, after one semester I felt lost. I soon decided to move back to New York to discover myself and figure out where I was headed.
+        </article>
+    </div>
+    <div style="clear:both;"></div>
     <article id="work-experience">
       <h2><em>Work Experience</em></h2>
-        <table border="1">
-          <tr bgcolor="tomato">
+        <table width="100%" border="1">
+          <tr style="background-color:black; color:white;" >
             <th>job</th>
             <th>title</th>
             <th>years</th>
@@ -75,17 +66,21 @@ created 4-4-19
         </table>
 
     </article>
+
     <article id="hobbies">
+
       <h2><em>Hobbies</em></h2>
-      <ul>
+        <div>
+      <ul  class="left" style="padding-right:30px;">
         <li>songwriting</li>
         <li>triatholons</li>
         <li>traveling</li>
       </ul>
+    </div>
 
-      <table border="1" width="50%">
+      <table border="1" width="50%" class="left">
         <caption>Favorite Songs</caption>
-        <tr bgcolor="tomato">
+        <tr style="background-color:black; color:white;">
           <th>Title</th>
           <th>Artist</th>
           <th>Album</th>
@@ -108,7 +103,7 @@ created 4-4-19
       </table>
     </article>
   </section>
-
+<div style="clear:both;"></div>
 
   <footer>
     <hr />
