@@ -4,7 +4,12 @@
   height:70px;
   padding-left:15px;
   text-shadow: 1px 1px black;
-  background-image: linear-gradient(grey, white);
+  background-color: black;
+}
+
+.backgrounds {
+background-image: url("images/city.jpg");
+background-size: 100%;
 }
 
 h1 {
@@ -17,7 +22,7 @@ margin:15px 0px 10px 15px;
 text-shadow: 1px 1px grey;
 padding:7px;
 border-radius:5px;
-background-color: skyblue;
+background-color: black;
 color: white;
 text-decoration: none;
 box-shadow: 1px 1px grey;
