@@ -1,17 +1,31 @@
 
 a {
-   background-color:white;
+   background-color:rgb(210, 220, 235, .8);
    border-radius: 5px;
-   padding: 3px;
+   padding: 3px 10px;
    text-decoration: none;
    color:black;
    margin: 3px;
+   border:1px solid black;
+}
+a:hover {
+  background-color:rgb(225, 235, 250);
 }
 
+body {
+  background-color:#E7E7E7;
+  margin:0;
+}
 
 td {
   background-color: white;
 }
+h2 {
+  display: inline-block;
+font-weight: bold;
+text-shadow: 1px 1px white;
+}
+
 
 .left {
   float:left;
@@ -23,10 +37,36 @@ td {
 
 .title {
   margin-top:0;
-  padding-top:20px;
+  padding-top:10px;
   margin-bottom:0;
-  padding-bottom:20px;
-  background-color: black;
-  background-size: cover;
+  padding-bottom:40px;
+  padding-left:10px;
+  background-image: url(../images/city.jpg);
+  background-size: 1400px;
   color:white;
+  text-shadow: 2px 2px black;
+  border-top: 20px solid black;
+}
+.images {
+  width:200px;
+  margin-right:10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.tableheading {
+background-color:black;
+ color:white;
+}
+
+.main-nav {
+  background-color: black;
+   color:white;
+    padding: 10px;
+     font-weight:bold;
+}
+.content {
+  border:2px solid black;
+  border-radius: 10px;
+  background-color: rgb(180, 190, 205);
+  padding:10px;
 }
