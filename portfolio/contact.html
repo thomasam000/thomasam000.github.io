@@ -12,14 +12,11 @@
         <a href="index.html">home</a>
       </nav>
     </header>
-  <form action="submit.html" method="POST"class="content">
-    <h2>Information Request</h2>
-    <label>First Name:</label> <br />
-    <input type="text" required><br />
-    <label>Last Name:</label> <br />
-    <input type="text" required><br />
-    <label>Phone Number:</label> <br />
-    <input type="text" required><br /><br />
+  <form action="submit.html" method="POST"class="content"style="width:50%;margin: 10px auto; ">
+    <h2>Information Request</h2><br>
+    <input type="text" placeholder="First Name" required><br><br>
+    <input type="text" placeholder="Last Name" required><br /><br>
+    <input type="text" placeholder="Phone Number" required><br /><br /><br>
     <select>
       <option selected>choose one</option>
       <option >Morning (8am to 12pm Eastern)></option>
@@ -38,13 +35,12 @@
     </fieldset>
     <fieldset>
       <legend>I have filled in the client questionnaire form:</legend>
-      <input type="radio" id="choice1" name="questionnaire" value="yes">
-      <label for="choice1">Yes</label><br />
+      <input type="radio" id="choice1" name="questionnaire" value="yes" checked>
+      <label for="choice1" >Yes</label><br />
       <input type="radio" id="choice2" name="questionnaire" value='no'>
       <label for="choice2">No</label><br />
     </fieldset>
-    <label for="info">Additional Information<label><br />
-    <textarea id="info" name="info"></textarea><br />
+    <textarea id="info" name="info" placeholder="Additional Information"></textarea><br />
     <input type="submit" name="submit" value="submit">
 
 

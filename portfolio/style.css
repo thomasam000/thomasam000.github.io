@@ -11,13 +11,20 @@ a {
 a:hover {
   background-color:rgb(225, 235, 250);
 }
+a:active {
+  background-color:white;
+}
 
 body {
   background-color:#E7E7E7;
   margin:0;
 }
+main {
+  max-width:750px;
+  margin:auto;
+}
 
-td {
+table{
   background-color: white;
 }
 h2 {
@@ -26,7 +33,16 @@ font-weight: bold;
 text-shadow: 1px 1px white;
 margin: 5px 10px;
 }
-
+table tr:nth-child(even) {
+background-color:lightgrey
+}
+footer {
+  text-align: center;
+  padding-top: 50px;
+  background-color: lightgrey;
+  margin-top: 20px;
+  border-top: 1px solid black;
+}
 
 .left {
   float:left;
@@ -71,4 +87,25 @@ background-color:black;
   background-color: rgb(180, 190, 205);
   padding:10px;
   margin: 10px;
+}
+/*form*/
+textarea {
+  width:100%;
+  height:70px;
+  resize:none;
+}
+input[type=text] {
+  width:100%;
+}
+input[type=submit] {
+  background-color:rgb(210, 220, 235, .8);
+  border-radius: 5px;
+  padding: 3px 10px;
+  text-decoration: none;
+  color:black;
+  margin: 3px;
+  border:1px solid black;
+}
+input[type=submit]:hover {
+  background-color:rgb(225, 235, 250);
 }
