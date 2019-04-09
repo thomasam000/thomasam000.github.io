@@ -24,6 +24,7 @@ h2 {
   display: inline-block;
 font-weight: bold;
 text-shadow: 1px 1px white;
+margin: 5px 10px;
 }
 
 
@@ -45,7 +46,7 @@ text-shadow: 1px 1px white;
   background-size: 1400px;
   color:white;
   text-shadow: 2px 2px black;
-  border-top: 20px solid black;
+  /* border-top: 20px solid black; */
 }
 .images {
   width:200px;
@@ -65,8 +66,9 @@ background-color:black;
      font-weight:bold;
 }
 .content {
-  border:2px solid black;
+  border:1px solid black;
   border-radius: 10px;
   background-color: rgb(180, 190, 205);
   padding:10px;
+  margin: 10px;
 }
