@@ -1,11 +1,22 @@
 .main-header {
-background-color: tomato;
+background-image: url(../images/stone-wall-texture_1110-425.jpg);
+background-size: 30%;
 font-family: 'Ubuntu Condensed', sans-serif;
+
+}
+.title{
+  font-weight: bold;
+  color:white;
+  text-shadow: 1px 1px black;
 }
 
 .footer {
   text-align: center;
   font-family: 'Ubuntu Condensed', sans-serif;
+  background-color: white;
+  border-top: 1px solid black;
+  margin-bottom:0;
+  border-bottom:30px solid white;
 }
 
 body {
@@ -15,16 +26,33 @@ body {
 .font {
 font-family: 'Ubuntu Condensed', sans-serif;
 }
+.background {
+  background-color: rgb(240,250,255)
+}
 
 nav a {
 display:inline-block;
-background-color: white;
+background-color:  rgb(240,250,255);
 text-decoration: none;
 border:1px solid black;
 margin:10px;
 padding:5px;
 border-radius: 5px;
 }
+nav a:hover {
+
+}
+nav a:active {
+
+}
+nav a:visited {
+
+}
+
+
+
+
+
 
 .menu {
   padding:40px 10px 10px 0px;
