@@ -1,15 +1,19 @@
-#main-header {
+.main-header {
 background-color: tomato;
-width
+font-family: 'Ubuntu Condensed', sans-serif;
 }
 
-#footer {
+.footer {
   text-align: center;
-
+  font-family: 'Ubuntu Condensed', sans-serif;
 }
 
 body {
+
   margin:0;
+}
+.font {
+font-family: 'Ubuntu Condensed', sans-serif;
 }
 
 nav a {
