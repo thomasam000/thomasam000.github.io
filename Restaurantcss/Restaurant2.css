@@ -1,8 +1,9 @@
 .main-header {
-background-image: url(../images/stone-wall-texture_1110-425.jpg);
+/* background-image: url(../images/stone-wall-texture_1110-425.jpg); */
 background-size: 30%;
+background-color: tomato;
 font-family: 'Ubuntu Condensed', sans-serif;
-
+margin-bottom:20px;
 }
 .title{
   font-weight: bold;
@@ -40,12 +41,15 @@ padding:5px;
 border-radius: 5px;
 }
 nav a:hover {
-
+background-color:rgb(240, 250, 255, .5);
+text-decoration: none;
 }
 nav a:active {
-
+font-weight: bold;
+text-decoration: none;
 }
 nav a:visited {
+text-decoration: underline;
 
 }
 
