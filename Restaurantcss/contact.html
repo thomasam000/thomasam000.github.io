@@ -10,6 +10,11 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <title>contact</title>
+    <style >
+      label {
+        font-weight: bold;
+      }
+    </style>
   </head>
 
   <body class="background">
@@ -35,19 +40,19 @@
     <form>
       <table width="80%" style="table-layout:fixed">
         <tr>
-          <td align="right"> Name: </td>
+          <td align="right"> <label>Name:</label> </td>
           <td>  <input type="text"> </td>
         </tr>
         <tr>
-          <td align="right"> Email: </td>
+          <td align="right"> <label>Email:</label> </td>
           <td>  <input type="text"> </td>
         </tr>
         <tr>
-          <td align="right"> Phone: </td>
+          <td align="right"> <label>Phone:</label></td>
           <td>  <input type="text"> </td>
         </tr>
         <tr>
-          <td align="right"> Reason for Inquiry:</td>
+          <td align="right"> <label>Reason for Inquiry:</label></td>
           <td>
             <select>
               <option value="catering"> Catering </option>
@@ -58,18 +63,18 @@
           </td>
         </tr>
         <tr>
-          <td align="right"> Additional Information:</td>
+          <td align="right"> <label>Additional Information:</label></td>
           <td><textarea rows="6" cols="20"></textarea></td>
         </tr>
         <tr>
-          <td align="right">Have you been to the restaurant?</td>
+          <td align="right"><label>Have you been to the restaurant?</label></td>
           <td>
             <input type="radio" name="question"> No
             <input type="radio" name="question"> Yes
           </td>
         </tr>
         <tr>
-          <td align="right"> Best day(s) to contact you:</td>
+          <td align="right"> <label>Best day(s) to contact you:</label></td>
           <td>
           <input type="checkbox" value="Monday"> M
           <input type="checkbox" value="Tuesday"> T
