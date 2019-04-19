@@ -1,0 +1,102 @@
+.big {
+  text-align: center;
+  background-color: rgb(240,250,255) !important;
+}
+
+.carousel {
+  height: 50%;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 10px, 0px black;
+  max-width: 550px;
+}
+.carousel-indicators li {
+      height:10px !important;
+width:10px !important;
+    border-radius: 50%;
+  top:10px;
+}
+
+.slideshow {
+margin:auto;
+}
+.imgs {
+  width:100%;
+}
+
+
+.main-header {
+
+background-size: ;
+background-color: tomato;
+font-family: 'Ubuntu Condensed', sans-serif;
+margin-bottom:20px;
+
+}
+.title{
+
+  font-weight: bold;
+  color:white;
+  text-shadow: 1px 1px black;
+}
+
+.footer {
+  text-align: center;
+  font-family: 'Ubuntu Condensed', sans-serif;
+  background-color: white;
+  border-top: 1px solid black;
+  margin-bottom:0;
+  border-bottom:30px solid white;
+}
+.border {
+  position:absolute;
+  height:100px;
+}
+
+body {
+
+  margin:0;
+}
+.font {
+font-family: 'Ubuntu Condensed', sans-serif;
+}
+.background {
+  background-color: rgb(240,250,255)
+}
+
+nav a {
+display:inline-block;
+color:black;
+font-size: 20px;
+background-color:  rgb(240,250,255);
+text-decoration: none;
+border:1px solid black;
+margin:10px;
+padding:5px;
+border-radius: 5px;
+min-width: 40px;
+}
+nav a:hover {
+  color:black;
+background-color:rgb(240, 250, 255, .5);
+text-decoration: none;
+}
+nav a:active {
+font-weight: bold;
+text-decoration: none;
+}
+nav a:visited {
+text-decoration: underline;
+
+}
+
+@media (max-width:575px){
+  nav a {
+    display:block;
+    text-align:center;
+    margin: 10px auto;
+  }
+  .title {
+    font-size: 30px;
+  }
+}

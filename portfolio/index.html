@@ -3,29 +3,36 @@
 Sam Thomas
 created 4-4-19
 -->
-<html lang="en">
- <head>
-   <link rel="stylesheet" type="text/css" href="style.css">
-  <title>
-   Sam's Portfolio
-  </title>
- </head>
- <body>
-
-   <header>
+<html lang="en" dir="ltr">
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Home</title>
+  </head>
+  <body class="body">
+       <header>
+     <div class="jumbotron title">
      <h1 class="title"> Portfolio for Sam Thomas </h1>
-       <nav class="main-nav">
-         <a href="projects.html"> Projects</a>
-         <a href="contact.html"> Contact Me</a>
-         <a href="testimonial.html" target="_blank"> Testimonials</a>
-       </nav>
+     </div>
+     <nav class="main-nav">
+       <a href="projects.html"> Projects</a>
+       <a href="contact.html"> Contact Me</a>
+       <a href="testimonial.html" target="_blank"> Testimonials</a>
+     </nav>
    </header>
-<main>
-  <section style="margin:10px;">
-    <div>
+
+<main class="">
+  <section class="row" >
+    <div class="col-12 col-xl-4 content">
       <h2>About me</h2>
       <div style="clear:both;"></div>
-<div class="content">
+<div class="">
       <img src="../images/Sam.jpg" class="images left"/>
       <article>
         <p >
@@ -40,9 +47,9 @@ created 4-4-19
     </div>
   </div>
     <div style="clear:both;"></div>
-    <article id="work-experience">
+    <article class="col-12 col-md-6 col-xl-4 content"id="work-experience">
       <h2>Work Experience</h2>
-      <div class="content">
+      <div class="">
         <table width="95%" border="1">
           <tr class="tableheading" >
             <th>job</th>
@@ -68,15 +75,16 @@ created 4-4-19
       </div>
 
     </article>
-  <h2>Hobbies</h2>
-    <article class="content">
+
+    <article class="col-12 col-md-6 col-xl-4 content">
+      <h2 class="left">Hobbies</h2>
+      <div style="clear:both;"></div>
           <ul  class="left" style="padding-right:30px;">
             <li>songwriting</li>
             <li>triatholons</li>
             <li>traveling</li>
           </ul>
           <table border="1" width="70%" class="left">
-            <caption>Favorite Songs</caption>
             <tr class="tableheading">
               <th>Title</th>
               <th>Artist</th>
@@ -105,7 +113,7 @@ created 4-4-19
 </main>
   <footer>
     <hr />
-    <a href="#top">top of page</a>
+    <a href="#top">&#8593;</a>
     <a href="../index.html">Landing Page</a>
     <p>&copy; 2019 Sam Thomas. All rights reserved.</p>
   </footer>
