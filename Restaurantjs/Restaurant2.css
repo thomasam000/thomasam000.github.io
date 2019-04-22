@@ -1,3 +1,6 @@
+
+
+
 .big {
   text-align: center;
   background-color: rgb(240,250,255) !important;
@@ -30,7 +33,7 @@ margin:auto;
 background-size: ;
 background-color: tomato;
 font-family: 'Ubuntu Condensed', sans-serif;
-margin-bottom:20px;
+margin-bottom:50px;
 
 }
 .title{
@@ -41,6 +44,7 @@ margin-bottom:20px;
 }
 
 .footer {
+  margin-top: 60px;
   text-align: center;
   font-family: 'Ubuntu Condensed', sans-serif;
   background-color: white;
@@ -94,7 +98,7 @@ text-decoration: underline;
   nav a {
     display:block;
     text-align:center;
-    margin: 10px auto;
+    margin: 10px 30px;
   }
   .title {
     font-size: 30px;
