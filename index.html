@@ -7,21 +7,42 @@
     </head>
 
   <body style="margin:0px;" class="backgrounds">
+        <div id="myNav" class="overlay">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <div class="overlay-content">
+              <a href="Restauranthtm/home.html" >Restaurant Project HTML </a>
+            <a href="Restaurantcss/index.html">Restaurant Project CSS</a>
+              <a href="Restaurantjs/index.html">Restaurant Project JS</a>
+          </div>
+        </div>
+
     <header class="main-nav">
       <h1>Sam Thomas</h1>
     </header>
     <main>
       <br>
+      <nav>
+
       <a href="https://sambthomas.wordpress.com/">Blog</a>
       <a href="portfolio/index.html">My Profile</a>
-      <a href="Restauranthtm/home.html" >Restaurant Project HTML </a>
-      <a href="Restaurantcss/index.html">Restaurant Project CSS</a>
-      <a href="Restaurantjs/index.html">Restaurant Project JS</a>
 
-<a href="mailto:thomasam000@gmail.com" data-rel="external">sample@email.com</a>
-<a href="tel:7182960303" data-rel="external">dominos</a>
+
+
+  <a style="cursor:pointer" onclick="openNav()">projects &#9776;</a>
+    </nav>
+
+<!-- <a href="mailto:thomasam000@gmail.com" data-rel="external">sample@email.com</a>
+<a href="tel:7182960303" data-rel="external">dominos</a> -->
     </main>
 
+<script>
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}
+</script>
 
   </body>
 </html>
