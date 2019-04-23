@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="chess.css">
+    <title></title>
+    <script src="chess.js"></script>
+  </head>
+  <body onload="lucky();">
+    <h1>Lucky 7's</h1>
+<div id="screen">
+      <div >total :$<span id="start"></span></div>
+      <button id="roll" onclick="roll();">roll the dice</button>
+
+      <span  id="dice1"></span>
+      <span id="dice2"></span> <br>
+
+<button onclick="addmoney();">add money</button> <br>
+<button onclick="reset()">reset</button>
+<button id="collect" onclick="collect();">collect money</button>
+
+<div >record # of rolls in one turn:<span id="record"></span></div>
+<div >max money held:<span id="max"></span></div>
+</div>
+<input type="text" id="cheat" placeholder="cheatcode">
+<br> increase: $<span id="balance" ></span>
+<script src="chess.js"></script>
+  </body>
+</html>
