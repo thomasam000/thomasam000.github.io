@@ -43,8 +43,30 @@
     </script>
   </head>
 
-  <body class="background">
+  <body class="background page-container">
+    <div class="content-wrap">
 
+    <nav class="navbar navbar-expand-md navbar-light  main-header sticky-top">
+      <h1 class="title" href="#">Vegan Kosher and Halal for All</h1>
+      <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText" style="text-align:center;">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="index.html">&#x2302;HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="menu.html">MENU</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="contact.html">CONTACT<span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+<!--
     <header  class="main-header">
       <div class="container">
         <nav class="row " style="text-align:center;">
@@ -62,11 +84,12 @@
           </div>
         </nav>
       </div>
-    </header>
-    <form class="container">
+    </header> -->
+    <form class="container font" style="margin-top:40px; ">
+      <h1 style="text-align:center;  ">Contact Us</h1>
       <div width="80%" class="row">
         <div class="col-12 col-md-6 label" ><label>Name:</label></div>
-        <div class="col-12 col-md-6 content form-control-sm" cont><input type="text" id="name" placeholder="Your Name Here"equired>
+        <div class="col-12 col-md-6 content form-control-sm" cont><input type="text" id="name" placeholder="Your Name Here" required>
         </div> <br> <hr>
         <div class="col-12 col-md-6 label" ><label>Email:</label></div>
         <div class="col-12 col-md-6 content form-control-sm" ><input type="text" id="email" placeholder="example@email.com"required>
@@ -76,8 +99,8 @@
         </div> <br> <hr>
         <div class="col-12 col-md-6 label" ><label>Preferred method of communication:</div>
         <div class="col-12 col-md-6 content" >
-          <input type="radio" name="question" > Phone
-          <input type="radio" name="question" > Email
+          <input type="radio" name="question1" > Phone
+          <input type="radio" name="question1" > Email
         </div>
         <div class="col-12 col-md-6 label" ><label>Reason for Inquiry:</label></div>
         <div class="col-12 col-md-6 content" >
@@ -122,8 +145,11 @@ function alerts() {
   }
 }
 </script>
-    <footer class="footer">
-      <hr />
-      <p>102-98 Jamaica Avenue, Richmond Hill, 11418</p>
+</div>
+
+    <footer class="footer foot">
+      <br>
+      <p><b>Richmond Hill</b> 102-98 Jamaica Avenue, Richmond Hill, 11418</p>
+      <p><b>Queens Center</b> 90-15 Queens Blvd, Elmhurst, NY 11373</p>
       <p>347-900-1234</p>
     </footer>
