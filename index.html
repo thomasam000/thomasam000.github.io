@@ -5,49 +5,77 @@
       <title>Sam Thomas</title>
       <link rel="stylesheet" type="text/css" href="style.css">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <link rel="stylesheet" type="text/css" href="Restaurant2.css">
-
+      <!-- <link rel="stylesheet" type="text/css" href="Restaurant2.css"> -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
     </head>
+    <header class="main-nav">
+      <h1>Sam Thomas</h1>
+      <h3>Web Developer</h3>
+    </header>
+
+
 
   <body style="margin:0px;" class="backgrounds">
-        <div id="myNav" class="overlay">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div id="myNavRight" class="overlayrl right" >
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNavRight()">&times;</a>
           <div class="overlay-content">
-              <a href="Restauranthtm/home.html" >Restaurant Project HTML </a>
-            <a href="Restaurantcss/index.html">Restaurant Project CSS</a>
-              <a href="Restaurantjs/index.html">Restaurant Project JS</a>
-              <a href="chess/index.html">Lucky Sevens</a>
-              <a href="synth/index.html">Synth</a>
+            About Me
+          </div>
+        </div>
+        <div id="myNavLeft" class="overlayrl left" >
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNavLeft()">&times;</a>
+          <div class="overlay-content">
+            Projects
+          </div>
+        </div>
+        <div id="myNavTop" class="overlayud top" >
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNavTop()">&times;</a>
+          <div class="overlay-content">
+            <img src="images/Converted.jpg" id="resume">
+          </div>
+        </div>
+        <div id="myNavBottom" class="overlayud bottom">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNavBottom()">&times;</a>
+          <div class="overlay-content">
+            Contact
           </div>
         </div>
 
-    <header class="main-nav">
-      <h1>Sam Thomas</h1>
-    </header>
-    <main>
-      <br>
-      <nav>
 
-      <a href="https://sambthomas.wordpress.com/">Blog</a>
-      <a href="portfolio/index.html">My Profile</a>
+        <a href="#" onclick="openNavTop()" id="toplink"><i class="fa fa-chevron-up" ></i><br/> Resume</a>
+        <a href="#" onclick="openNavBottom()" id="bottomlink">Contact<br/><i class="fa fa-chevron-down" ></i></a>
+        <a href="#" onclick="openNavLeft()" id="leftlink"><i class="fa fa-chevron-left" ></i>Projects</a>
+        <a href="#" onclick="openNavRight()" id="rightlink">About Me<i class="fa fa-chevron-right" ></i></a>
 
-
-
-  <a style="cursor:pointer" onclick="openNav()">projects &#9776;</a>
-    </nav>
-
-<!-- <a href="mailto:thomasam000@gmail.com" data-rel="external">sample@email.com</a>
-<a href="tel:7182960303" data-rel="external">dominos</a> -->
     </main>
 
 <script>
-function openNav() {
-  document.getElementById("myNav").style.width = "100%";
+function openNavRight() {
+  document.getElementById("myNavRight").style.width = "100%";
 }
-function closeNav() {
-  document.getElementById("myNav").style.width = "0%";
+function closeNavRight() {
+  document.getElementById("myNavRight").style.width = "0%";
 }
+function openNavLeft() {
+  document.getElementById("myNavLeft").style.width = "100%";
+}
+function closeNavLeft() {
+  document.getElementById("myNavLeft").style.width = "0%";
+}
+function openNavTop() {
+  document.getElementById("myNavTop").style.height = "100%";
+}
+function closeNavTop() {
+  document.getElementById("myNavTop").style.height = "0%";
+}
+function openNavBottom() {
+  document.getElementById("myNavBottom").style.height = "100%";
+}
+function closeNavBottom() {
+  document.getElementById("myNavBottom").style.height = "0%";
+}
+
 </script>
 
   </body>

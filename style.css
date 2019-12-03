@@ -4,15 +4,21 @@
   height:70px;
   padding-left:15px;
   text-shadow: 1px 1px black;
-  background-color: black;
   margin-bottom: 0px;
+  left:50%;
+  bottom:50%;
+  position: absolute;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
+text-align: center;
 }
 
 .backgrounds {
 background-color: black;
-background-image: url("images/city.jpg");
+/* background-image: url("images/code.jpg"); */
 background-repeat: no-repeat;
-background-size: 100%;
+background-size:100%;
+/* background-position: center; */
 }
 
 @media (max-width:768px) {
@@ -25,52 +31,106 @@ h1 {
   margin:0px;
 }
 
-nav a {
-  display:inline-block;
+a {
+display:inline-block;
 font-size: 1.5em;
 margin:0 0 10px 0;
-text-shadow: 1px 1px grey;
 padding:7px;
 border-radius:1px;
-background-color: black;
 color: white;
 text-decoration: none;
-box-shadow: 1px 1px grey;
+text-align: center;
 }
-nav a:hover {
-  background-color:rgb(0,0,0,.5);
+a:hover {
+  color:tomato;
 }
-nav a:active {
-  background-color: rgb(150,50,0,.5)
+a:active {
+  color: lightblue;
+}
+i {
+  margin: 0 5px;
 }
 
-<style>
+#toplink {
+  top:0;
+  left:50%;
+  transform: translateX(-50%);
+  position:absolute;
+}
+#bottomlink {
+  bottom:0;
+  left:50%;
+  transform: translateX(-50%);
+  position:absolute;
+}
+#leftlink {
+  top:50%;
+  left:0;
+  transform: translateY(-50%);
+  position:absolute;
+}
+#rightlink {
+  top:50%;
+  right:0;
+  transform: translateY(-50%);
+  position:absolute;
+}
+
+
 body {
   font-family: 'Lato', sans-serif;
 }
 
-.overlay {
+.overlayrl {
   height: 100%;
   width: 0;
   position: fixed;
   z-index: 1;
+  background-color: white;
+  /* background-color: rgba(0,0,0, 0.7); */
+  overflow-x: hidden;
+  transition: .5s;
+}
+.overlayud {
+  height: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+  /* background-color: rgba(0,0,0, 0.7); */
+  overflow-x: hidden;
+  transition: .5s;
+}
+.right {
+  top: 0;
+  right: 0;
+}
+.left {
   top: 0;
   left: 0;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.7);
-  overflow-x: hidden;
-  transition: 0.3s;
+}
+.top {
+  top: 0;
+  right: 0;
+
+}
+.bottom {
+  bottom: 0;
+  right: 0;
+
 }
 
 .overlay-content {
-  position: relative;
+  color:black;
+
+  /* position: relative;
   top: 25%;
-  width: 100%;
+  /* width: 100%; */
   text-align: center;
-  margin-top: 30px;
+  margin-top: 50px; */
 }
 
-.overlay a {
+/* .overlay a {
   padding: 8px;
   text-decoration: none;
   font-size: 36px;
@@ -81,11 +141,23 @@ body {
 
 .overlay a:hover, .overlay a:focus {
   color: #f1f1f1;
+} */
+
+.closebtn {
+  color:black;
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 60px;
 }
 
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
+
+
+
+
+#resume {
+  margin: 0 auto;
+  width:100%;
+  max-width: 800px;
+  min-width: 400px;
 }
