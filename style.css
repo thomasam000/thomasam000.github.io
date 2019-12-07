@@ -1,5 +1,5 @@
 .main-nav {
-  font-size: 1.5em;
+  font-size: 1.3em;
   color:white;
   height:70px;
   padding-left:15px;
@@ -31,9 +31,13 @@ h1 {
   margin:0px;
 }
 
-a {
+.skill {
+  padding:30px 10px;
+}
+
+.ahome {
 display:inline-block;
-font-size: 1.5em;
+font-size: 1.3em;
 margin:0 0 10px 0;
 padding:7px;
 border-radius:1px;
@@ -41,14 +45,15 @@ color: white;
 text-decoration: none;
 text-align: center;
 }
-a:hover {
+.ahome:hover {
   color:tomato;
 }
-a:active {
+.ahome:active {
   color: lightblue;
 }
 i {
   margin: 0 5px;
+  font-size: 1.2em;
 }
 
 #toplink {
@@ -75,6 +80,31 @@ i {
   transform: translateY(-50%);
   position:absolute;
 }
+#topexit {
+  display:none;
+}
+#bottomexit {
+  display:none;
+}
+#leftexit {
+  display:none;
+}
+#rightexit {
+  display:none;
+}
+
+@media (max-width : 500px) {
+
+
+  #lefttext {
+    display: inline-block;
+    transform: translateX(-20px) rotate(90deg)
+  }
+  #righttext {
+    display: inline-block;
+    transform:translateX(27px) rotate(-90deg) ;
+  }
+}
 
 
 body {
@@ -89,7 +119,7 @@ body {
   background-color: white;
   /* background-color: rgba(0,0,0, 0.7); */
   overflow-x: hidden;
-  transition: .5s;
+  transition: .3s;
 }
 .overlayud {
   height: 0;
@@ -99,7 +129,7 @@ body {
   background-color: white;
   /* background-color: rgba(0,0,0, 0.7); */
   overflow-x: hidden;
-  transition: .5s;
+  transition: .3s;
 }
 .right {
   top: 0;
@@ -145,10 +175,11 @@ body {
 
 .closebtn {
   color:black;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 25px;
   font-size: 60px;
+  display:block;
 }
 
 
@@ -160,4 +191,10 @@ body {
   width:100%;
   max-width: 800px;
   min-width: 400px;
+  overflow:auto;
+}
+
+.Resume {
+  width:100%;
+  max-width: 400px;
 }
