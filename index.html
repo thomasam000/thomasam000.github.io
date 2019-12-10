@@ -47,24 +47,26 @@
 
             <h1> My Projects </h1>
             <br><br><br>
-              <p><b>SYNTH WITH P5 PROCESSING</b> - <a href="synth/index.html">Synth Link</a></p>
-              <img src="images/synth.png" height="300px"/>
+              <p><b>SYNTH WITH P5 PROCESSING</b> - <a href="synth/index.html" target="_blank">Synth Link</a></p>
+              <img src="images/synth.png" height="300px" />
               <ul>
                 <li>Used the P5 javascript library, including P5 sound library to create a basic synthesizer that can be played with the computer keys. The display teaches how to play the melody of fur elise</li>
                 <li>Technologies Used: JavaScript, P5 Processing</li>
               </ul>
               <br><br><br>
-              <p><b>MUSIC REVIEW WEBSITE</b> - <a href="http://calm-cove-00851.herokuapp.com">calm-cove-00851.herokuapp.com</a></p>
+              <p><b>MUSIC REVIEW WEBSITE</b> - <a href="http://calm-cove-00851.herokuapp.com "target="_blank">calm-cove-00851.herokuapp.com</a></p>
               <img src="images/blog.png" height="300px"/>
               <ul>
-                <li>Created a multipage dynamic website using Spring Boot MVC. The site allowed users to sign in as either a contributor that could write reviews, an admin who could manage all users and content or a user who can display content and create comments.</li>
+                <li>Created a multipage dynamic website using Spring Boot MVC. Includes Spring Security with different types of users, including admin and contributor.</li>
+                <li>A standard User account can comment on existing posts, a contributor can create new Posts and display update and delete their existing posts, and an admin account approves posts by contributors and can add, delete and update all posts as well as categories, hashtags and user accounts.</li>
+                <li>Created the front end using thymeleaf templates, css, javascript and Bootstrap. The site is also connected to the LastFM API to get access to all albums and the album art</li>
                 <li>Technologies Used: Java, Thyme Leaf, MySQL, JavaScript, LastFM API, TinyMCE, HTML, CSS, Bootstrap, Spring MVC, Heroku, Tomcat and Spring Dependency Injection.</li>
               </ul>
               <br><br><br>
-              <p><b>TOP DOG REMODELING</b> - <a href="http://serene-lake-79956.herokuapp.com">in progress</a></p>
+              <p><b>TOP DOG REMODELING</b> - <a href="http://serene-lake-79956.herokuapp.com" target="_blank">in progress</a></p>
               <img src="images/topdog.png" height="150px"/>
               <ul>
-                <li>Created a multipage dynamic website using Spring Boot MVC. The site allowed admin to sign in and upload photos using the dropbox API and content using a MYSQL database.</li>
+                <li>Created a multipage dynamic website using Spring Boot MVC. The site allowed admin to sign in and upload and delete photos using the dropbox API and content using a MYSQL database.</li>
                 <li>Technologies Used: Java, Thyme Leaf, MySQL, JavaScript, Drop Box API, HTML, CSS, Bootstrap, Spring MVC, Heroku, Tomcat and Spring Dependency Injection.</li>
               </ul>
 
@@ -186,7 +188,17 @@
         <div id="myNavBottom" class="overlayud bottom">
           <a href="javascript:void(0)" class="closebtn" id="bottomexit" onclick="closeNavBottom()">&times;</a>
           <div class="overlay-content">
-            Contact
+            <h1>Contact<h1>
+              <div class="contact">
+                <a href="mailto:thomasam000@gmail.com"><i class="fa fa-envelope" id="mail"></i><a/>
+                <a href="http://linkedin.com/in/sam-thomas-286826181/"><i class="fa fa-linkedin" id="linkedin"></i><a/>
+                  <br>
+                <a href="tel:+5096708432"><i class="fa fa-phone-square" id="phone"></i><a/>
+                <a href="http://github.com/thomasam000"><i class="fa fa-github-square" id="github"></i><a/>
+
+
+
+              </div>
           </div>
         </div>
 

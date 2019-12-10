@@ -189,6 +189,7 @@ body {
   font-size: 60px;
   display:block;
   text-decoration: none;
+  padding:20px;
 }
 .closebtn:hover {
   text-decoration: none;
@@ -222,4 +223,24 @@ header:hover {
 
 #aboutme {
   max-width: 800px;
+}
+
+.contact i {
+  font-size: 5em;
+  margin:20px;
+}
+
+#mail {
+color:lightblue;
+}
+#phone {
+  color:tomato;
+
+}
+#linkedin {
+  color:tomato;
+
+}
+#github {
+  color:lightblue;
 }
