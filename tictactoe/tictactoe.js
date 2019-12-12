@@ -92,6 +92,8 @@ if (
       board = [[0,0,0],[0,0,0],[0,0,0]]
       $(".square").text("");
       count = 1;
+      next = 0;
+
       return null;
     }, 250);
 
@@ -102,6 +104,8 @@ if (
     board = [[0,0,0],[0,0,0],[0,0,0]]
     $(".square").text("");
     count = 1;
+    next = 0;
+
     return null;
 }, 250);
 } else {
