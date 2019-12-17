@@ -318,6 +318,55 @@ function evaluateForDanger(active) {
       $("#00").text(turn);
       return;
     }
+  } else if (firstMove == "side" && secondMove == "corner") {
+    if (board[1][0] == "X") {
+      if (board[0][2] == "X") {
+        board[0][0] = turn;
+        $("#00").text(turn);
+        return;
+      }
+      if (board[2][2] == "X") {
+        board[2][0] = turn;
+        $("#20").text(turn);
+        return;
+      }
+    }
+    if (board[2][1] == "X") {
+      if (board[0][0] == "X") {
+        board[2][0] = turn;
+        $("#20").text(turn);
+        return;
+      }
+      if (board[0][2] == "X") {
+        board[2][2] = turn;
+        $("#22").text(turn);
+        return;
+      }
+    }
+    if (board[1][2] == "X") {
+      if (board[0][0] == "X") {
+        board[0][2] = turn;
+        $("#02").text(turn);
+        return;
+      }
+      if (board[2][0] == "X") {
+        board[2][2] = turn;
+        $("#22").text(turn);
+        return;
+      }
+    }
+    if (board[0][1] == "X") {
+      if (board[2][0] == "X") {
+        board[0][0] = turn;
+        $("#00").text(turn);
+        return;
+      }
+      if (board[2][2] == "X") {
+        board[2][0] = turn;
+        $("#00").text(turn);
+        return;
+      }
+    }
 
   }
 }
