@@ -105,13 +105,13 @@ export default {
 
 
             var desk = new Desk()
-            desk.position.z = 30
+            desk.position.z = -30
             this.scene.add( desk );
 
             var bulletinBoard = new BulletinBoard()
-            bulletinBoard.position.x = 10
+            bulletinBoard.position.x = -10
             bulletinBoard.position.y = 50
-            bulletinBoard.position.z = 50
+            bulletinBoard.position.z = -50
             this.scene.add(bulletinBoard)
 
         },  
