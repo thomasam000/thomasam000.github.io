@@ -1,4 +1,4 @@
-import {Mesh, LinearFilter, MeshPhongMaterial, BoxGeometry, Object3D, TextureLoader, RepeatWrapping} from "three-full";
+import {Mesh, MeshPhongMaterial, BoxGeometry, Object3D, TextureLoader, RepeatWrapping} from "three-full";
 
 const board_width = 48;
 const board_height = 36;
@@ -39,15 +39,6 @@ const bottom = new Mesh( topBorderGeometry, border_material );
 bottom.position.y = -board_height/2 + border_width/2
 bottom.updateMatrix()
 
-const resumeGeometry = new BoxGeometry( 12, 16, .1);
-const resumeMap = loader.load(require("../assets/Resume-SamThomas1024_1.jpg")); 
-resumeMap.generateMipmaps = false;
-resumeMap.minFilter =LinearFilter;
-resumeMap.needsUpdate = true;
-const resume = new Mesh( resumeGeometry,new MeshPhongMaterial( {map: resumeMap } ) );
-resume.position.x = 10
-resume.position.y = -5
-resume.position.z = 1
 
 const BulletinBoardObject = new Object3D()
 BulletinBoardObject.add(left)
@@ -55,8 +46,23 @@ BulletinBoardObject.add(right)
 BulletinBoardObject.add(top)
 BulletinBoardObject.add(bottom)
 BulletinBoardObject.add(boardMesh)
-BulletinBoardObject.add(resume)
 
+// var raycaster = new THREE.Raycaster();
+// var mouse = new THREE.Vector2();
+// var targetMesh
+// function onMouseClick( event ) {
+//     raycaster.setFromCamera( mouse, camera );
+//     var isIntersected = raycaster.intersectObject( targetMesh );
+//     if (isIntersected) {
+//         console.log('Mesh clicked!')
+//     }
+// }
+// function onMouseMove( event ) {
+//     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+//     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+// }
+// window.addEventListener( 'mouseclick', onMouseClick, false );
+// window.addEventListener( 'mousemove', onMouseMove, false );
 
 // bulletinBoardGeometry.merge(boardMesh.geometry, boardMesh.matrix);
 // bulletinBoardGeometry.merge(left.geometry, left.matrix);

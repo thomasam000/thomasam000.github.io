@@ -1,4 +1,5 @@
 import {Geometry, Mesh, MeshPhongMaterial, BoxGeometry} from "three-full";
+// import { TextureLoader, RepeatWrapping } from "three-full";
 
 
 const table_width = 80;
@@ -7,11 +8,20 @@ const table_depth = 40;
 const table_thickness = 2;
 const leg_thickness = 2
 
-const material = new MeshPhongMaterial( {color: 0x3c280d} );
+// const loader = new TextureLoader();
+
+// const texMap = loader.load(require("../assets/table-texture.jpg")); 
+// texMap.wrapS = RepeatWrapping;
+// texMap.wrapT = RepeatWrapping;
+// texMap.repeat.set( 2, 2 );
+
+// const material = new MeshPhongMaterial( {map: texMap} );
+
+const material = new MeshPhongMaterial( {color: 0xffffff} );
 
 var deskGeometry = new Geometry();
 
-const legGeo = new BoxGeometry( leg_thickness, table_height - table_thickness, leg_thickness );
+const legGeo = new BoxGeometry( leg_thickness, table_height, leg_thickness );
 
 const Leg1 = new Mesh( legGeo, material );
 Leg1.position.x = table_width/2 - leg_thickness/2 - 2
