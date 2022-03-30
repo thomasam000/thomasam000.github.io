@@ -23,7 +23,6 @@ import Desk from '@/threeJsComponents/desk'
 import BulletinBoard from '@/threeJsComponents/bulletinBoard'
 import {} from 'three-story-controls'
 import * as CANNON from 'cannon'
-
 // CameraControls.install( { THREE: THREE } );
 
 export default {
@@ -51,7 +50,7 @@ export default {
             this.scene = new Scene()
             this.container = this.$refs.canvas
             // 60, width / height, 0.01, 100
-            this.camera = new PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.01, 1000 );
+            this.camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 1000 );
             this.camera.position.z = 0.01;
             // camera.position.y = 50;
             // this.camera.position.y=50
@@ -94,14 +93,25 @@ export default {
             // this.cameraRig.camera.position.set( 0, 50, 48);
             this.raycaster = new Raycaster();
             window.addEventListener('resize', this.resize_canvas);
-            window.addEventListener( 'click', this.onMouseClick, false );
+            window.addEventListener( 'mousedown', this.onMouseDown, false );
+            window.addEventListener( 'mouseup', this.onMouseUp, false );
             window.addEventListener( 'mousemove', this.onMouseMove, false );
         },
-        onMouseClick() {
+        onMouseDown() {
             this.raycaster.setFromCamera( this.mouse, this.camera );
             var results = this.raycaster.intersectObjects( this.clickables );
             if (results.length > 0) {
-                this.fitCameraToObject(results[0])
+                this.currently_clicked = results[0].faceIndex
+            }
+        },
+        onMouseUp() {
+            this.raycaster.setFromCamera( this.mouse, this.camera );
+            var results = this.raycaster.intersectObjects( this.clickables );
+            if (results.length > 0) {
+                if (this.currently_clicked == results[0].faceIndex) {
+                    this.fitCameraToObject(results[0])
+                }
+                this.currently_clicked = null
             }
             // this.controls.target.x = results[0].point.x
             // this.controls.target.y = results[0].point.y
@@ -218,7 +228,7 @@ export default {
             const resume = new Mesh( resumeGeometry,new MeshPhongMaterial( {map: resumeMap } ) );
             resume.position.x = 0
             resume.position.y = -5
-            resume.position.z = -49
+            resume.position.z = -49.5
             this.clickables.push(resume)
             resume.my_width = 12
             resume.my_height = 16
@@ -271,22 +281,39 @@ export default {
             this.composer.render();
             requestAnimationFrame( this.anim );
         }, 
+
         fitCameraToObject(mesh) {
-            this.controls.enableZoom  = true;
-            this.controls.target.x = mesh.point.x
-            this.controls.target.y = mesh.point.y
-            this.controls.target.z = mesh.point.z
-            // var height = mesh.my_height
-            // var width = mesh.my_width
-            const camera_x = mesh.point.x
-            const camera_y = mesh.point.y
-            const camera_z = mesh.point.z + (15)
-            this.camera.position.x = camera_x
-            this.camera.position.y = camera_y
-            this.camera.position.z = camera_z
-        }
-          
-        // this.renderer.render( this.scene, this.camera );			}
+            var width = mesh.object.geometry.parameters.width
+            // window_width = window.innerWidth
+            var height = mesh.object.geometry.parameters.height
+            var distance = ((width/2) / (this.camera.aspect * Math.tan(( this.camera.fov / 2) * (Math.PI /180))))
+            console.log(distance)
+
+            this.controls.target.x = mesh.object.position.x 
+            this.controls.target.y = mesh.object.position.y + height/2 - width/this.camera.aspect/2
+            this.controls.target.z = mesh.object.position.z 
+
+            var start = this.camera.position.z
+            var goal = mesh.object.position.z + distance 
+            var total_distance = goal - start
+
+            this.camera.position.x = mesh.object.position.x
+            this.camera.position.y = mesh.object.position.y + height/2 - width/this.camera.aspect/2
+            
+            var update_camera =  () => {
+                var increment = (1 - (2*Math.abs(this.camera.position.z / total_distance - .5))) + 0.05
+
+                if (this.camera.position.z > goal) {
+                    this.camera.position.z = this.camera.position.z - increment
+                } else {
+                    return
+                }
+                setTimeout (() => {
+                    update_camera()
+                }, 10) 
+            }
+            update_camera()
+        },
     },
     async mounted () {
         this.init()
