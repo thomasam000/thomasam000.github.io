@@ -1,16 +1,16 @@
 import {Mesh, MeshPhongMaterial, BoxGeometry, Object3D, TextureLoader, RepeatWrapping} from "three-full";
 
-const board_width = 48;
-const board_height = 36;
+const board_width = 28;
+const board_height = 20;
 const board_depth = 1;
-const border_width = 2;
+const border_width = 1;
 const border_depth = 1.5
 
 const loader = new TextureLoader();
-const texMap = loader.load(require("../assets/cork-board.jpg")); 
+const texMap = loader.load(require("../assets/sand.jpg")); 
 texMap.wrapS = RepeatWrapping;
 texMap.wrapT = RepeatWrapping;
-texMap.repeat.set( 2, 2 );
+texMap.repeat.set( 1.5, 1.5 );
 
 const material = new MeshPhongMaterial( {map: texMap} );
 

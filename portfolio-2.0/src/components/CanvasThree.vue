@@ -17,7 +17,7 @@
 </template>
 <script>
 // import CameraControls from 'camera-controls'
-import {Raycaster, EffectComposer, RenderPass, OutlinePass, LinearFilter, BoxGeometry, Vector2, Scene, Clock, OrbitControls, PerspectiveCamera, WebGLRenderer, Mesh, PlaneGeometry, MeshPhongMaterial, PointLight, AmbientLight, TextureLoader} from "three-full";
+import {Raycaster, RepeatWrapping, EffectComposer, RenderPass, OutlinePass, LinearFilter, BoxGeometry, Vector2, Scene, Clock, OrbitControls, PerspectiveCamera, WebGLRenderer, Mesh, PlaneGeometry, MeshPhongMaterial, PointLight, AmbientLight, TextureLoader} from "three-full";
 // import {getCurrentInstance } from 'vue'
 import Desk from '@/threeJsComponents/desk'
 import BulletinBoard from '@/threeJsComponents/bulletinBoard'
@@ -74,11 +74,7 @@ export default {
             this.composer.addPass( this.outlinePass );
             this.renderer.getDrawingBufferSize();
 
-				// effectFXAA = new ShaderPass( FXAAShader );
-				// effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
-				// composer.addPass( effectFXAA );
             this.container.appendChild( this.renderer.domElement );
-            // this.cameraRig = new CameraRig(this.camera, this.scene)
             this.controls = new OrbitControls(this.camera, this.renderer.domElement)
             this.controls.rotateSpeed = - 0.25;
             this.controls.enableZoom  = false;
@@ -137,7 +133,10 @@ export default {
 
             // const floor_texture = new TextureLoader().load("../src/assets/315.jpg");
             const loader = new TextureLoader();
-            const texMap = loader.load(require("../assets/wood.jpg")); 
+            const texMap = loader.load(require("../assets/smooth_wood.jpg")); 
+            texMap.wrapS = RepeatWrapping;
+            texMap.wrapT = RepeatWrapping;
+            texMap.repeat.set( 1.5, 1.5 );
 
             this.planeBottom = new Mesh( planeGeo, new MeshPhongMaterial( {map: texMap } ) );
             this.planeBottom.position.y = -50;
@@ -146,21 +145,21 @@ export default {
             this.scene.add( this.planeBottom );
 
 
-            const planeFront = new Mesh( planeGeo, new MeshPhongMaterial( { color: 0xeeeeff } ) );
+            const planeFront = new Mesh( planeGeo, new MeshPhongMaterial( { color: 0xffffff } ) );
             planeFront.position.z = 50;
             planeFront.position.y = 0;
             planeFront.receiveShadow = true;
             planeFront.rotateY( Math.PI );
             this.scene.add( planeFront );
 
-            const planeBack = new Mesh( planeGeo, new MeshPhongMaterial( { color: 0xeeeeff } ) );
+            const planeBack = new Mesh( planeGeo, new MeshPhongMaterial( { color: 0xffffff } ) );
             planeBack.position.z = -50;
             planeBack.position.y = 0;
             planeBack.receiveShadow = true;
             // planeBack.rotateY( Math.PI );
             this.scene.add( planeBack );
 
-            const planeRight = new Mesh( planeGeo, new MeshPhongMaterial( { color: 0xeeeeff } ) );
+            const planeRight = new Mesh( planeGeo, new MeshPhongMaterial( { color: 0xffffff } ) );
             planeRight.position.x = 50;
             planeRight.position.y = 0;
             planeRight.receiveShadow = true;
@@ -168,45 +167,67 @@ export default {
             planeRight.rotateY( - Math.PI / 2 );
             this.scene.add( planeRight );
 
-            const planeLeft = new Mesh( planeGeo, new MeshPhongMaterial( { color: 0xeeeeff } ) );
+            const planeLeft = new Mesh( planeGeo, new MeshPhongMaterial( { color: 0xffffff } ) );
             planeLeft.position.x = - 50;
             planeLeft.receiveShadow = true;
             planeLeft.position.y = 0;
             planeLeft.rotateY( Math.PI / 2 );
             this.scene.add( planeLeft );
 
-            const mainLight = new PointLight( 0xffffee, .50, 250 );
+            const mainLight = new PointLight( 0xffffff, 0.5, 350, 1);
             mainLight.position.y = 35;
+            mainLight.position.z = 5;
             mainLight.castShadow = true;
-            mainLight.shadow.mapSize.width = 512; // default
-            mainLight.shadow.mapSize.height = 512; // default
-            mainLight.shadow.camera.near = 0.5; // default
-            mainLight.shadow.camera.far = 500 
-            mainLight.shadow.radius  = 75
+            // mainLight.shadow.mapSize.width = 512; // default
+            // mainLight.shadow.mapSize.height = 512; // default
+            // mainLight.shadow.camera.near = 0.5; // default
+            // mainLight.shadow.camera.far = 500 
+            // mainLight.shadow.radius  = 75
             // mainLight.shadow.blurSamples = 1000
 
             this.scene.add( mainLight );
-            const mainLight2 = new PointLight( 0xffffee, .50, 250 );
-            mainLight2.position.y = 35;
-            mainLight2.castShadow = false;
-            // mainLight.shadow.blurSamples = 1000
-            this.scene.add( mainLight2 );
+            // const mainLight2 = new PointLight( 0xffffff, .50, 250 );
+            // mainLight2.position.y = 35;
+            // mainLight2.position.z = -10;
+            // mainLight2.castShadow = true;
+            // // mainLight.shadow.blurSamples = 1000
+            // this.scene.add( mainLight2 );
 
-            const light = new AmbientLight( 0xcccccc, 0.5 ); // soft white light
+            const light = new AmbientLight( 0xccccdd, 0.7 ); // soft white light
             this.scene.add( light );
+            // light
 
+// const table_width = 80;
+// const table_height = 30;
+// const table_depth = 40;
+// const table_thickness = 2;
+// const leg_thickness = 2
 
-            this.desk = new Desk()
-            this.desk.position.z = -30
-            this.desk.position.y = -49
+            this.desk = new Desk(80, 30, 30, 1, 1)
+            this.desk2 = new Desk(30, 30, 40, 1, 1)
+            this.desk.position.z = -35
+            this.desk.position.y = -50
+            this.desk.position.x = 10
+            this.desk2.position.z = 0
+            this.desk2.position.y = -50
+            this.desk2.position.x = 35
             this.scene.add( this.desk );
-            const CannonDesk = new CANNON.Box(new CANNON.Vec3(0, 0, 0))
-            this.CannonDeskBody = new CANNON.Body({ mass: 10 })
-            this.CannonDeskBody.addShape(CannonDesk)
-            this.CannonDeskBody.position.x = this.desk.position.x
-            this.CannonDeskBody.position.y = this.desk.position.y
-            this.CannonDeskBody.position.z = this.desk.position.z
-            this.world.addBody(this.CannonDeskBody)
+            this.scene.add( this.desk2 );
+            
+            // const CannonDesk = new CANNON.Box(new CANNON.Vec3(0, 0, 0))
+            // this.CannonDeskBody = new CANNON.Body({ mass: 10 })
+            // this.CannonDeskBody.addShape(CannonDesk)
+            // this.CannonDeskBody.position.x = this.desk.position.x
+            // this.CannonDeskBody.position.y = this.desk.position.y
+            // this.CannonDeskBody.position.z = this.desk.position.z
+            // this.world.addBody(this.CannonDeskBody)
+            // const CannonDesk2 = new CANNON.Box(new CANNON.Vec3(0, 0, 0))
+            // this.CannonDeskBody2 = new CANNON.Body({ mass: 10 })
+            // this.CannonDeskBody2.addShape(CannonDesk2)
+            // this.CannonDeskBody2.position.x = this.desk2.position.x
+            // this.CannonDeskBody2.position.y = this.desk2.position.y
+            // this.CannonDeskBody2.position.z = this.desk2.position.z
+            // this.world.addBody(this.CannonDeskBody2)
 
             const planeShape = new CANNON.Plane()
             this.planeBody = new CANNON.Body({ mass: 0 })
@@ -215,19 +236,27 @@ export default {
             this.planeBody.position.y = -50
             this.world.addBody(this.planeBody)
 
+            
+            // const cieling = new CANNON.Plane()
+            // this.cieling = new CANNON.Body({ mass: 0 })
+            // this.cieling.addShape(cieling)
+            // this.cieling.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
+            // this.cieling.position.y = 50
+            // this.world.addBody(this.cieling)
+
             var bulletinBoard = new BulletinBoard()
             bulletinBoard.position.x = -10
-            bulletinBoard.position.y = 0
+            bulletinBoard.position.y = -5
             bulletinBoard.position.z = -50
 
-            const resumeGeometry = new BoxGeometry( 12, 16, .1);
+            const resumeGeometry = new BoxGeometry( 8, 32/3, .1);
             const resumeMap = loader.load(require("../assets/SamuelBThomasResume-page-001.jpg")); 
             resumeMap.generateMipmaps = false;
             resumeMap.minFilter =LinearFilter;
             resumeMap.needsUpdate = true;
             const resume = new Mesh( resumeGeometry,new MeshPhongMaterial( {map: resumeMap } ) );
-            resume.position.x = 0
-            resume.position.y = -5
+            resume.position.x = -5
+            resume.position.y = -7.5
             resume.position.z = -49.5
             this.clickables.push(resume)
             resume.my_width = 12
@@ -266,17 +295,28 @@ export default {
             this.world.step(delta)
 
             // Copy coordinates from Cannon to Three.js
-            this.desk.position.set(
-                this.CannonDeskBody.position.x,
-                this.CannonDeskBody.position.y,
-                this.CannonDeskBody.position.z
-            )
-            this.desk.quaternion.set(
-                this.CannonDeskBody.quaternion.x,
-                this.CannonDeskBody.quaternion.y,
-                this.CannonDeskBody.quaternion.z,
-                this.CannonDeskBody.quaternion.w
-            )
+            // this.desk.position.set(
+            //     this.CannonDeskBody.position.x,
+            //     this.CannonDeskBody.position.y,
+            //     this.CannonDeskBody.position.z
+            // )
+            // this.desk.quaternion.set(
+            //     this.CannonDeskBody.quaternion.x,
+            //     this.CannonDeskBody.quaternion.y,
+            //     this.CannonDeskBody.quaternion.z,
+            //     this.CannonDeskBody.quaternion.w
+            // )
+            // this.desk2.position.set(
+            //     this.CannonDeskBody2.position.x,
+            //     this.CannonDeskBody2.position.y,
+            //     this.CannonDeskBody2.position.z
+            // )
+            // this.desk2.quaternion.set(
+            //     this.CannonDeskBody2.quaternion.x,
+            //     this.CannonDeskBody2.quaternion.y,
+            //     this.CannonDeskBody2.quaternion.z,
+            //     this.CannonDeskBody2.quaternion.w
+            // )
             // console.log(this.CannonDeskBody.position.y)
             this.composer.render();
             requestAnimationFrame( this.anim );
@@ -301,7 +341,7 @@ export default {
             this.camera.position.y = mesh.object.position.y + height/2 - width/this.camera.aspect/2
             
             var update_camera =  () => {
-                var increment = (1 - (2*Math.abs(this.camera.position.z / total_distance - .5))) + 0.05
+                var increment = (1 - (2*Math.abs(this.camera.position.z / total_distance - .5))) + 0.1
 
                 if (this.camera.position.z > goal) {
                     this.camera.position.z = this.camera.position.z - increment
