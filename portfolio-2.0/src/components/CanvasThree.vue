@@ -65,8 +65,8 @@ export default {
 
             this.outlinePass = new OutlinePass( new Vector2( window.innerWidth, window.innerHeight ), this.scene, this.camera);
             // this.outlinePass.edgeThickness = 10
-            this.outlinePass.visibleEdgeColor.set('#0000ff');
-            this.outlinePass.hiddenEdgeColor.set('#0000ff');
+            this.outlinePass.visibleEdgeColor.set('#ffffff');
+            this.outlinePass.hiddenEdgeColor.set('#ffffff');
             this.outlinePass.edgeStrength = 1000
             this.outlinePass.edgeThickness = 1
             this.outlinePass.edgeGlow = 0
@@ -133,10 +133,10 @@ export default {
 
             // const floor_texture = new TextureLoader().load("../src/assets/315.jpg");
             const loader = new TextureLoader();
-            const texMap = loader.load(require("../assets/smooth_wood.jpg")); 
+            const texMap = loader.load(require("../assets/laminate.jpg")); 
             texMap.wrapS = RepeatWrapping;
             texMap.wrapT = RepeatWrapping;
-            texMap.repeat.set( 1.5, 1.5 );
+            texMap.repeat.set( 3, 3 );
 
             this.planeBottom = new Mesh( planeGeo, new MeshPhongMaterial( {map: texMap } ) );
             this.planeBottom.position.y = -50;
@@ -203,8 +203,8 @@ export default {
 // const table_thickness = 2;
 // const leg_thickness = 2
 
-            this.desk = new Desk(80, 30, 30, 1, 1)
-            this.desk2 = new Desk(30, 30, 40, 1, 1)
+            this.desk = new Desk(80, 28, 30, 1, 1)
+            this.desk2 = new Desk(30, 28, 40, 1, 1)
             this.desk.position.z = -35
             this.desk.position.y = -50
             this.desk.position.x = 10
