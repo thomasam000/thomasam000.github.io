@@ -161,7 +161,7 @@ function calculate_sun_position() {
     sun_mesh.position.z = 400*Math.cos(sun_angle_z);;
 }
 function recalculate_time() {
-    percent_of_day = percent_of_day + 0.001
+    percent_of_day = percent_of_day + 0.0002
     if (percent_of_day > 1) {
         percent_of_day = percent_of_day -1
     }
@@ -186,12 +186,12 @@ function calculate_sun_brightness_and_color() {
     }
     if (percent_of_day >= 0.6 && percent_of_day <= 0.85 ) {
         sun_r = 1
-        sun_g = 1 - 0.5 * ((percent_of_day - 0.6) / 0.25)
-        sun_b = 1 - ((percent_of_day - 0.6) / 0.25)
+        sun_g = 0.94 * (1 - 0.5 * ((percent_of_day - 0.6) / 0.25))
+        sun_b = 0.88 * (1 - ((percent_of_day - 0.6) / 0.25))
     } else if (percent_of_day < 0.6) {
         sun_r = 1
-        sun_g = 1
-        sun_b = 1
+        sun_g = 0.94
+        sun_b = 0.88
     }
     sun.color.r = sun_r
     sun.color.g = sun_g
