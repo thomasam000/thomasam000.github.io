@@ -6,7 +6,7 @@ import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import Desk from './threeJsComponents/desk.js'
 import WindowPanel from './threeJsComponents/windowPanel'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const canvas = document.querySelector('canvas.webgl')
 
@@ -24,7 +24,7 @@ function calculate_time() {
     minutes = date.getMinutes()
     seconds = date.getSeconds()
     
-    percent_of_day = ((hours - 1) + (minutes/60) + (seconds/640)) / 24
+    percent_of_day = ((hours-1) + (minutes/60) + (seconds/3600)) / 24
     sun_angle_z = (2 * Math.PI * percent_of_day) + (3* Math.PI/2)
 }
 calculate_time() 
@@ -44,7 +44,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.shadowMap.enabled = true;
 renderer.setSize( window.innerWidth, window.innerHeight );
 let composer = new EffectComposer(renderer)
-scene.background = new THREE.Color( 0xff0000 );
+scene.background = new THREE.Color( 0xaaaaaa );
 
 let renderPass = new RenderPass( scene, camera );
 composer.addPass( renderPass );
@@ -83,6 +83,7 @@ const planeTop = new THREE.Mesh( boardGeometry, new THREE.MeshPhongMaterial( { c
 planeTop.position.y = 50;
 planeTop.rotateX( Math.PI / 2 );
 planeTop.castShadow = true
+planeTop.receiveShadow = true
 // planeTop.rotateZ( Math.PI );
 scene.add( planeTop );
 
@@ -161,7 +162,7 @@ function calculate_sun_position() {
     sun_mesh.position.z = 400*Math.cos(sun_angle_z);;
 }
 function recalculate_time() {
-    percent_of_day = percent_of_day + 0.0002
+    percent_of_day = percent_of_day + 0.002
     if (percent_of_day > 1) {
         percent_of_day = percent_of_day -1
     }
@@ -170,19 +171,20 @@ function recalculate_time() {
 let sun_r;
 let sun_g;
 let sun_b;
+
 function calculate_sun_brightness_and_color() {
     if (percent_of_day > 0.25 && percent_of_day < 0.75) {
-        sun_brightness = 0.8
+        sun_brightness = 1.2
         ambient_brightness = 0.5
-    } else if (percent_of_day < 0.15 || percent_of_day > 0.90) {
+    } else if (percent_of_day < 0.15 || percent_of_day > 0.85) {
         sun_brightness = 0.0
         ambient_brightness = 0.05
     } else if (percent_of_day >= 0.15 && percent_of_day <= 0.25){
-        sun_brightness = 0.8 * (percent_of_day - 0.15) / 0.1
+        sun_brightness = 1.2 * (percent_of_day - 0.15) / 0.1
         ambient_brightness = (0.45 * (percent_of_day - 0.15) / 0.1) + 0.05
-    } else if (percent_of_day >= 0.80 && percent_of_day <= 0.90) {
-        sun_brightness = 0.8 * (0.90 - percent_of_day) / 0.1
-        ambient_brightness = (0.45 * (0.90 - percent_of_day) / 0.1) + 0.05
+    } else if (percent_of_day >= 0.75 && percent_of_day <= 0.85) {
+        sun_brightness = 1.2 * (0.85 - percent_of_day) / 0.1
+        ambient_brightness = (0.45 * (0.85 - percent_of_day) / 0.1) + 0.05
     }
     if (percent_of_day >= 0.6 && percent_of_day <= 0.85 ) {
         sun_r = 1
@@ -209,12 +211,23 @@ scene.add( sun );
 scene.add(sun_mesh); // add the mesh to the scene
 
 var dome = new THREE.Mesh(
-    new THREE.SphereGeometry(700, 64, 64),
-    new THREE.MeshPhongMaterial({color:0xbfe2ff}) 
+    // new THREE.SphereGeometry(700, 64, 64),
+    new THREE.SphereGeometry(700,64,64, Math.PI/2,  Math.PI*2, 0, Math.PI/1.8),
+    new THREE.MeshPhongMaterial({color:0x99bbff}) 
 );
 dome.material.side = THREE.BackSide
 
 scene.add(dome); // add the mesh to the scene
+var underdome = new THREE.Mesh(
+    // new THREE.SphereGeometry(700, 64, 64),
+    new THREE.SphereGeometry(350,64,64, Math.PI/2,  Math.PI*2, 0, Math.PI/2.1),
+    new THREE.MeshPhongMaterial({color:0xcccccc}) 
+);
+underdome.material.side = THREE.BackSide
+underdome.rotateZ(Math.PI)
+underdome.castShadow = true
+// underdome.receiveShadow = true
+scene.add(underdome); // add the mesh to the scene
 // const near = 1;
 // const far = 700;
 // const color = 0xccccee;
@@ -234,30 +247,140 @@ scene.add( desk );
 scene.add( desk2 );
 
 
-for (let x=-40; x < 50; x += 20) {
-    for (let y=-40; y < 50; y += 20) {
-        let panel = new WindowPanel()
-        panel.position.x = x
-        panel.position.y = y
-        panel.position.z = -51
-        scene.add(panel)
-    }
-}
-for (let z=-40; z < 50; z += 20) {
-    for (let y=-40; y < 50; y += 20) {
-        let panel = new WindowPanel()
-        panel.position.z = z
-        panel.position.y = y
-        panel.position.x = -51
-        panel.rotateY(- Math.PI / 2)
-        scene.add(panel)
-    }
-}
+let panel1 = new WindowPanel(20, 20)
+panel1.position.z = -40
+panel1.position.y = 40
+panel1.position.x = -51
+panel1.rotateY(- Math.PI / 2)
+scene.add(panel1)
+let panel2 = new WindowPanel(40, 20)
+panel2.position.z = -10
+panel2.position.y = 40
+panel2.position.x = -51
+panel2.rotateY(- Math.PI / 2)
+scene.add(panel2)
+let panel3 = new WindowPanel(40, 20)
+panel3.position.z = 30
+panel3.position.y = 40
+panel3.position.x = -51
+panel3.rotateY(- Math.PI / 2)
+scene.add(panel3)
+let panel4 = new WindowPanel(20, 40)
+panel4.position.z = -40
+panel4.position.y = 10
+panel4.position.x = -51
+panel4.rotateY(- Math.PI / 2)
+scene.add(panel4)
+let panel5 = new WindowPanel(20, 40)
+panel5.position.z = -40
+panel5.position.y = -30
+panel5.position.x = -51
+panel5.rotateY(- Math.PI / 2)
+scene.add(panel5)
+let panel6 = new WindowPanel(40, 40)
+panel6.position.z = -10
+panel6.position.y = 10
+panel6.position.x = -51
+panel6.rotateY(- Math.PI / 2)
+scene.add(panel6)
+let panel7 = new WindowPanel(40, 40)
+panel7.position.z = -10
+panel7.position.y = -30
+panel7.position.x = -51
+panel7.rotateY(- Math.PI / 2)
+scene.add(panel7)
+let panel8 = new WindowPanel(40, 40)
+panel8.position.z = 30
+panel8.position.y = 10
+panel8.position.x = -51
+panel8.rotateY(- Math.PI / 2)
+scene.add(panel8)
+let panel9 = new WindowPanel(40, 40)
+panel9.position.z = 30
+panel9.position.y = -30
+panel9.position.x = -51
+panel9.rotateY(- Math.PI / 2)
+scene.add(panel9)
+
+
+let panel10 = new WindowPanel(20, 20)
+panel10.position.x = -40
+panel10.position.y = 40
+panel10.position.z = -51
+scene.add(panel10)
+let panel11 = new WindowPanel(40, 20)
+panel11.position.x = -10
+panel11.position.y = 40
+panel11.position.z = -51
+scene.add(panel11)
+let panel12 = new WindowPanel(40, 20)
+panel12.position.x = 30
+panel12.position.y = 40
+panel12.position.z = -51
+scene.add(panel12)
+let panel13 = new WindowPanel(20, 40)
+panel13.position.x = -40
+panel13.position.y = 10
+panel13.position.z = -51
+scene.add(panel13)
+let panel14 = new WindowPanel(20, 40)
+panel14.position.x = -40
+panel14.position.y = -30
+panel14.position.z = -51
+scene.add(panel14)
+let panel15 = new WindowPanel(40, 40)
+panel15.position.x = -10
+panel15.position.y = 10
+panel15.position.z = -51
+scene.add(panel15)
+let panel16 = new WindowPanel(40, 40)
+panel16.position.x = -10
+panel16.position.y = -30
+panel16.position.z = -51
+scene.add(panel16)
+let panel17 = new WindowPanel(40, 40)
+panel17.position.x = 30
+panel17.position.y = 10
+panel17.position.z = -51
+scene.add(panel17)
+let panel18 = new WindowPanel(40, 40)
+panel18.position.x = 30
+panel18.position.y = -30
+panel18.position.z = -51
+scene.add(panel18)
+
+// for (let x=-40; x < 50; x += 20) {
+//     for (let y=-40; y < 50; y += 20) {
+//         let panel = new WindowPanel()
+//         panel.position.x = x
+//         panel.position.y = y
+//         panel.position.z = -51
+//         scene.add(panel)
+//     }
+// }
+// for (let z=-40; z < 50; z += 20) {
+//     for (let y=-40; y < 50; y += 20) {
+//         let panel = new WindowPanel()
+//         panel.position.z = z
+//         panel.position.y = y
+//         panel.position.x = -51
+//         panel.rotateY(- Math.PI / 2)
+//         scene.add(panel)
+//     }
+// }
 
 // let panel = new WindowPanel()
 // panel.position.z = -10
 // scene.add(panel)
-
+function calculations() {
+    calculate_time()
+    calculate_sun_position()
+    calculate_sun_brightness_and_color()
+}
+calculations()
+let time_interval = window.setInterval(() => {
+    calculations()
+}, 5000) 
 
 
 
@@ -289,12 +412,15 @@ function animate () {
     requestAnimationFrame(animate );
     // var time = Date.now() * 0.0005;
 
-    recalculate_time()
-    calculate_sun_position()
-    calculate_sun_brightness_and_color()
+    // recalculate_time()
+    // calculate_sun_position()
+    // calculate_sun_brightness_and_color()
     
 }
 
+// axios.get('http://api.weatherapi.com/v1/current.json?key=5c59ee25b4be4ac69a7142821220304&q=New%20York').then((response) => {
+//     console.log(response.data.current.condition.code)
+// })
 animate()
 
 
@@ -307,3 +433,30 @@ function resize_canvas() {
 }
 
 window.addEventListener('resize', resize_canvas)
+
+
+
+const gltfloader = new GLTFLoader().setPath( 'models/' );
+// loader.setKTX2Loader( ktx2Loader );
+// loader.setMeshoptDecoder( MeshoptDecoder );
+gltfloader.load( 'plant.gltf', function ( gltf ) {
+
+    // coffeemat.glb was produced from the source scene using gltfpack:
+    // gltfpack -i coffeemat/scene.gltf -o coffeemat.glb -cc -tc
+    // The resulting model uses EXT_meshopt_compression (for geometry) and KHR_texture_basisu (for texture compression using ETC1S/BasisLZ)
+    // gltf.scene.scale.multiplyScalar(0.1);
+    // gltf.scene.position.x = 3
+    // gltf.scene.position.y = -1
+    // gltf.scene.position.z = 3
+    gltf.scene.children[0].scale.multiplyScalar(30);
+    gltf.scene.children[0].frustumCulled = false
+    gltf.scene.children[0].position.x = 35
+    gltf.scene.children[0].position.y = -20
+    gltf.scene.children[0].position.z = -40
+    gltf.scene.children[0].castShadow = true
+    gltf.scene.children[0].receiveShadow = true
+    // gltf.scene.children[0].material.side = THREE.BackSide
+    console.log(gltf.scene)
+    scene.add( gltf.scene.children[0] );
+
+} )

@@ -4,10 +4,10 @@ import * as THREE from 'three'
 import { createDitherTexture, DitheredTransparencyShaderMixin} from './ScreenDoorShader.js'
 
 
-function create_window() {
+function create_window(width, height) {
 
-const board_width = 20;
-const board_height = 20;
+const board_width = width;
+const board_height = height;
 const board_depth = 1;
 const border_width = .5;
 const border_depth = 2;
@@ -134,7 +134,7 @@ return BulletinBoardObject
 
 
 
-function WindowPanel() {
-    return create_window()
+function WindowPanel(width, height) {
+    return create_window(width, height)
 }
 export default WindowPanel
