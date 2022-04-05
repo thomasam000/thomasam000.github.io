@@ -1,15 +1,18 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import {DeviceOrientationControls} from 'three/examples/jsm/controls/DeviceOrientationControls.js'
+
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import Desk from './threeJsComponents/desk.js'
 import WindowPanel from './threeJsComponents/windowPanel'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 const canvas = document.querySelector('canvas.webgl')
-
+console.log(canvas.width)
 let date;
 let hours;
 let minutes;
@@ -29,27 +32,27 @@ function calculate_time() {
 }
 calculate_time() 
 
-let pivotPoint = new THREE.Object3D();
+// let pivotPoint = new THREE.Object3D();
 
 let mouse = new THREE.Vector2()
 let clock = new THREE.Clock()
 let scene = new THREE.Scene()
 
-let camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 0.01, 10000 );
+let camera = new THREE.PerspectiveCamera( 65, (window.innerWidth - 300) / window.innerHeight, 0.01, 10000 );
 camera.position.z = 0.01;
 
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.shadowMap.enabled = true;
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( (window.innerWidth - 300), window.innerHeight );
 let composer = new EffectComposer(renderer)
 scene.background = new THREE.Color( 0xaaaaaa );
 
 let renderPass = new RenderPass( scene, camera );
 composer.addPass( renderPass );
 
-let outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera);
+let outlinePass = new OutlinePass( new THREE.Vector2( (window.innerWidth - 300), window.innerHeight ), scene, camera);
 
 outlinePass.visibleEdgeColor.set('#ffffff');
 outlinePass.hiddenEdgeColor.set('#ffffff');
@@ -61,6 +64,8 @@ composer.addPass( outlinePass );
 renderer.getDrawingBufferSize();
 
 // canvas.appendChild( renderer.domElement );
+// let controls = new DeviceOrientationControls(camera, true);
+
 let controls = new OrbitControls(camera, renderer.domElement)
 controls.rotateSpeed = - 0.25;
 controls.enableZoom  = true;
@@ -124,23 +129,16 @@ planeLeft.position.y = 0;
 planeLeft.rotateY( Math.PI / 2 );
 // scene.add( planeLeft );
 
-const mainLight = new THREE.PointLight( 0xffffff, 0.5, 350, 1);
+const mainLight = new THREE.PointLight( 0xffffff, 0.2, 350, 1);
 mainLight.position.y = 35;
 mainLight.position.z = 5;
 mainLight.castShadow = true;
 mainLight.shadow.mapSize.set( 1024, 1024 )
-scene.add( mainLight );
+// scene.add( mainLight );
 
 
-let sun_brightness
-let ambient_brightness
-// if (hours > 21 || hours < 6) {
-//     sun_brightness = 0.8
-//     ambient_brightness = 0.3
-// } else {
-//     sun_brightness = 0.8
-//     ambient_brightness = 0.3
-// }
+let sun_brightness = 1.0;
+let ambient_brightness = 0.6;
 
 const sun = new THREE.PointLight( new THREE.Color("rgb(255,255,255)"), sun_brightness, 2000, 1);
 sun.castShadow = true;
@@ -154,37 +152,51 @@ sun_mesh.receiveShadow = false
 sun_mesh.castShadow = false
 
 function calculate_sun_position() {
-    sun.position.x = -50;
-    sun.position.y = 400*Math.sin(sun_angle_z);
-    sun.position.z = 400*Math.cos(sun_angle_z);
-    sun_mesh.position.x = -50;
-    sun_mesh.position.y = 400*Math.sin(sun_angle_z);;
-    sun_mesh.position.z = 400*Math.cos(sun_angle_z);;
+    let x_pos;
+    let y_pos;
+    let z_pos;
+    
+    y_pos = 400*Math.sin(sun_angle_z);
+    z_pos = 400*Math.cos(sun_angle_z)
+    let x_angle = 2* Math.PI /6
+    let little_triangle_hypotenuse = y_pos * Math.cos(x_angle)
+    let little_triangle_angle = Math.PI/2 - ((Math.PI - x_angle)/2)
+
+    x_pos = -little_triangle_hypotenuse * Math.cos(little_triangle_angle)
+    y_pos = y_pos - (little_triangle_hypotenuse * Math.sin(little_triangle_angle))
+
+    sun.position.x = x_pos;
+    sun.position.y = y_pos;
+    sun.position.z = z_pos;
+    sun_mesh.position.x = x_pos;
+    sun_mesh.position.y = y_pos;
+    sun_mesh.position.z = z_pos;
 }
+
 function recalculate_time() {
-    percent_of_day = percent_of_day + 0.002
+    percent_of_day = percent_of_day + 0.01
     if (percent_of_day > 1) {
         percent_of_day = percent_of_day -1
     }
     sun_angle_z = (2 * Math.PI * percent_of_day) + (3* Math.PI/2)
 }
-let sun_r;
-let sun_g;
-let sun_b;
+let sun_r = 1.0;
+let sun_g = 1.0;
+let sun_b = 1.0;
 
 function calculate_sun_brightness_and_color() {
     if (percent_of_day > 0.25 && percent_of_day < 0.75) {
-        sun_brightness = 1.2
+        sun_brightness = 1.0
         ambient_brightness = 0.5
-    } else if (percent_of_day < 0.15 || percent_of_day > 0.85) {
+    } else if (percent_of_day < 0.15 || percent_of_day > 0.90) {
         sun_brightness = 0.0
         ambient_brightness = 0.05
     } else if (percent_of_day >= 0.15 && percent_of_day <= 0.25){
-        sun_brightness = 1.2 * (percent_of_day - 0.15) / 0.1
+        sun_brightness = 1.0 * (percent_of_day - 0.15) / 0.1
         ambient_brightness = (0.45 * (percent_of_day - 0.15) / 0.1) + 0.05
-    } else if (percent_of_day >= 0.75 && percent_of_day <= 0.85) {
-        sun_brightness = 1.2 * (0.85 - percent_of_day) / 0.1
-        ambient_brightness = (0.45 * (0.85 - percent_of_day) / 0.1) + 0.05
+    } else if (percent_of_day >= 0.80 && percent_of_day <= 0.90) {
+        sun_brightness = 1.0 * (0.90 - percent_of_day) / 0.1
+        ambient_brightness = (0.45 * (0.90 - percent_of_day) / 0.1) + 0.05
     }
     if (percent_of_day >= 0.6 && percent_of_day <= 0.85 ) {
         sun_r = 1
@@ -202,9 +214,8 @@ function calculate_sun_brightness_and_color() {
     ambient_light.intensity = ambient_brightness
 }
 
-calculate_sun_position();
-sun.add(pivotPoint);
-sun_mesh.add(pivotPoint);
+// sun.add(pivotPoint);
+// sun_mesh.add(pivotPoint);
 
 
 scene.add( sun );
@@ -235,11 +246,12 @@ scene.add(underdome); // add the mesh to the scene
 const ambient_light = new THREE.AmbientLight( 0xccccdd, ambient_brightness ); // soft white light
 scene.add( ambient_light );
 
-let desk = new Desk(80, 30, 30, 1, 1)
+let desk = new Desk(30, 30, 80, 1, 1)
 let desk2 = new Desk(30, 30, 40, 1, 1)
 desk.position.z = -35
 desk.position.y = -50
 desk.position.x = 10
+desk.rotateY(Math.PI / 2)
 desk2.position.z = 0
 desk2.position.y = -50
 desk2.position.x = 35
@@ -380,7 +392,7 @@ function calculations() {
 calculations()
 let time_interval = window.setInterval(() => {
     calculations()
-}, 5000) 
+}, 500) 
 
 
 
@@ -425,29 +437,19 @@ animate()
 
 
 function resize_canvas() {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = (window.innerWidth - 300) / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    composer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize((window.innerWidth - 300), window.innerHeight);
+    composer.setSize((window.innerWidth - 300), window.innerHeight);
     
 }
 
 window.addEventListener('resize', resize_canvas)
 
 
-
-const gltfloader = new GLTFLoader().setPath( 'models/' );
-// loader.setKTX2Loader( ktx2Loader );
-// loader.setMeshoptDecoder( MeshoptDecoder );
-gltfloader.load( 'plant.gltf', function ( gltf ) {
-
-    // coffeemat.glb was produced from the source scene using gltfpack:
-    // gltfpack -i coffeemat/scene.gltf -o coffeemat.glb -cc -tc
-    // The resulting model uses EXT_meshopt_compression (for geometry) and KHR_texture_basisu (for texture compression using ETC1S/BasisLZ)
-    // gltf.scene.scale.multiplyScalar(0.1);
-    // gltf.scene.position.x = 3
-    // gltf.scene.position.y = -1
-    // gltf.scene.position.z = 3
+const gltfloader = new GLTFLoader()
+// require('./models/plant.gltf')
+gltfloader.load( 'data/plant.gltf', function ( gltf ) {
     gltf.scene.children[0].scale.multiplyScalar(30);
     gltf.scene.children[0].frustumCulled = false
     gltf.scene.children[0].position.x = 35
@@ -455,8 +457,54 @@ gltfloader.load( 'plant.gltf', function ( gltf ) {
     gltf.scene.children[0].position.z = -40
     gltf.scene.children[0].castShadow = true
     gltf.scene.children[0].receiveShadow = true
-    // gltf.scene.children[0].material.side = THREE.BackSide
-    console.log(gltf.scene)
     scene.add( gltf.scene.children[0] );
+})
 
-} )
+const keysTexture = loader.load(require("/static/KeyB.jpg").default); 
+const screenTexture = loader.load(require("/static/macScreen.jpg").default); 
+const TopLineTexture = loader.load(require("/static/TopLine.jpg").default); 
+
+const fbxLoader = new FBXLoader()
+fbxLoader.load('data/MacBookPro.fbx', function(fbx) {
+    console.log(fbx)
+    fbx.scale.multiplyScalar(0.04)
+    const Plane = fbx.getObjectByName('Plane');
+    const Camera001 = fbx.getObjectByName('Camera001');
+    const macBook_TopPart = fbx.getObjectByName('macBook_TopPart');
+    macBook_TopPart.castShadow = true
+    macBook_TopPart.receiveShadow = true
+    const macBook_BottomPart = fbx.getObjectByName('macBook_BottomPart');
+    // const screenLight = new THREE.SpotLight( 0xff0000, 0.5, Math.PI);
+    // const screenLight = new THREE.SpotLight( 0xffffff );
+    const screenLight = new THREE.PointLight( 0xffffff, 0.05 , 45, 1);
+    screenLight.castShadow = true
+    // screenLight.target.x = 0
+    // screenLight.target.y = 0
+    // screenLight.target.z = 0
+    macBook_BottomPart.castShadow = true
+    macBook_BottomPart.receiveShadow = true
+    const macBookScreen = macBook_TopPart.material[1]
+    const macBookKeys = macBook_BottomPart.material[3]
+    const macBookKeysBottom = macBook_BottomPart.material[4]
+    const macBookTopLine = macBook_BottomPart.material[5]
+    macBookScreen.map = screenTexture
+    macBookScreen.emissive = new THREE.Color(0xffffff)
+    macBookScreen.emissiveMap = screenTexture
+    macBookScreen.emissiveIntensity = 0.2
+    macBookKeysBottom.emissive = new THREE.Color(0xffffff)
+    macBookKeysBottom.emissiveIntensity = 0.2
+    macBookKeys.map = keysTexture
+    macBookTopLine.map = TopLineTexture
+    fbx.remove( Plane );
+    fbx.remove( Camera001 );
+    fbx.rotateY(Math.PI)
+    fbx.position.x = 0
+    fbx.position.y = -22
+    fbx.position.z = -35
+    screenLight.position.x = 2
+    screenLight.position.y = -12
+    screenLight.position.z = -33.5
+    // fbx.add(screenLight)
+    scene.add(fbx)
+    scene.add(screenLight)
+})

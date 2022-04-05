@@ -65,12 +65,25 @@ h1 {
   transition: margin-left .5s;
   padding: 16px;
 }
-
+.mySidebar {
+  position:fixed;
+  height:100vh;
+  left:0;
+  width:300px;
+  top:0;
+  bottom:0;
+  background-color: #111;
+  color:white;
+  padding:10px;
+}
     </style>
 </head>
 <body>
-    <canvas class="webgl"></canvas>
-    <div id="mySidebar" class="sidebar">
+    <canvas class="webgl" ></canvas>
+    <div class="mySidebar">
+      <h2>Samuel Thomas</h2>
+    </div>
+    <!-- <div id="mySidebar" class="sidebar">
         <h1>Sam Thomas</h1>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a href="#">About</a>
@@ -93,7 +106,7 @@ h1 {
         document.getElementById("mySidebar").style.width = "0";
         document.getElementById("main").style.marginLeft= "0";
         }
-    </script>
+    </script> -->
 
 </body>
 </html>

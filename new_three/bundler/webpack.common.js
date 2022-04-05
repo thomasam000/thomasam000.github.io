@@ -83,10 +83,20 @@ module.exports = {
                     }
                 ]
             },
+            //models
             {
-                test: /\.fbx$/, 
-                use: 'raw-loader' 
-            }
+                test: /\.(gltf)$/,
+                use:
+                [
+                    {
+                        loader: 'raw-loader',
+                        options:
+                        {
+                            outputPath: 'assets/models/'
+                        }
+                    }
+                ]
+            },
         ]
     }
 }
