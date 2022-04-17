@@ -1,0 +1,60 @@
+diff --git a/node_modules/three-story-controls/dist/.npmignore b/node_modules/three-story-controls/dist/.npmignore
+deleted file mode 100644
+index e9c5078..0000000
+--- a/node_modules/three-story-controls/dist/.npmignore
++++ /dev/null
+@@ -1,2 +0,0 @@
+-tsdoc-metadata.json
+-.DS_Store
+\ No newline at end of file
+diff --git a/node_modules/three-story-controls/src/CameraRig.ts b/node_modules/three-story-controls/src/CameraRig.ts
+index 11fc4fa..1625fc0 100644
+--- a/node_modules/three-story-controls/src/CameraRig.ts
++++ b/node_modules/three-story-controls/src/CameraRig.ts
+@@ -237,26 +237,26 @@ export class CameraRig extends EventDispatcher {
+         break
+       }
+ 
+-      case CameraAction.Truck: {
+-        const axis = this.getAxisVectorFor(CameraAction.Tilt)
+-        const component = targetComponent || this.body
+-        component.translateOnAxis(axis, amount)
+-        break
+-      }
+-
+-      case CameraAction.Pedestal: {
+-        const axis = this.getAxisVectorFor(CameraAction.Pan)
+-        const component = targetComponent || this.body
+-        component.translateOnAxis(axis, amount)
+-        break
+-      }
+-
+-      case CameraAction.Dolly: {
+-        const axis = this.getAxisVectorFor(CameraAction.Roll)
+-        const component = targetComponent || this.body
+-        component.translateOnAxis(axis, amount)
+-        break
+-      }
++      // case CameraAction.Truck: {
++      //   const axis = this.getAxisVectorFor(CameraAction.Tilt)
++      //   const component = targetComponent || this.body
++      //   component.translateOnAxis(axis, amount)
++      //   break
++      // }
++
++      // case CameraAction.Pedestal: {
++      //   const axis = this.getAxisVectorFor(CameraAction.Pan)
++      //   const component = targetComponent || this.body
++      //   component.translateOnAxis(axis, amount)
++      //   break
++      // }
++
++      // case CameraAction.Dolly: {
++      //   const axis = this.getAxisVectorFor(CameraAction.Roll)
++      //   const component = targetComponent || this.body
++      //   component.translateOnAxis(axis, amount)
++      //   break
++      // }
+ 
+       case CameraAction.Zoom: {
+         if (this.camera instanceof PerspectiveCamera) {

@@ -3,8 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
+
 module.exports = {
-    entry: path.resolve(__dirname, '../src/script.js'),
+    entry: {
+        // index: [path.resolve(__dirname, '../src/script.js')],
+        three: [path.resolve(__dirname, '../src/script.js')],
+        synth: [path.resolve(__dirname, '../src/synth/sketch.js')],
+        tictactoe: [path.resolve(__dirname, '../src/tictactoe/tictactoe.js')],
+      },
+    // entry: path.resolve(__dirname, '../src/script.js'),
     output:
     {
         filename: 'bundle.[contenthash].js',
@@ -20,6 +27,25 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/index.html'),
+            filename: "index.html",
+            minify: true
+        }),
+        new HtmlWebpackPlugin({
+            title: 'THREE',
+            template: path.resolve(__dirname, '../src/three.html'),
+            filename: "three.html",
+            minify: true
+        }),
+        new HtmlWebpackPlugin({
+            title: 'tictactoe',
+            template: path.resolve(__dirname, '../src/tictactoe/tictactoe.html'),
+            filename: "tictactoe.html",
+            minify: true
+        }),
+        new HtmlWebpackPlugin({
+            title: 'synth',
+            template: path.resolve(__dirname, '../src/synth/synth.html'),
+            filename: "synth.html",
             minify: true
         }),
         new MiniCSSExtractPlugin()

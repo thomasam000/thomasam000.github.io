@@ -7,6 +7,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import Desk from './threeJsComponents/desk.js'
+import Door from './threeJsComponents/door.js'
 import WindowPanel from './threeJsComponents/windowPanel'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
@@ -38,7 +39,7 @@ let mouse = new THREE.Vector2()
 let clock = new THREE.Clock()
 let scene = new THREE.Scene()
 
-let camera = new THREE.PerspectiveCamera( 65, (window.innerWidth - 300) / window.innerHeight, 0.01, 10000 );
+let camera = new THREE.PerspectiveCamera( 75, (window.innerWidth - 300) / window.innerHeight, 0.01, 10000 );
 camera.position.z = 0.01;
 
 const renderer = new THREE.WebGLRenderer({
@@ -129,12 +130,12 @@ planeLeft.position.y = 0;
 planeLeft.rotateY( Math.PI / 2 );
 // scene.add( planeLeft );
 
-const mainLight = new THREE.PointLight( 0xffffff, 0.2, 350, 1);
+const mainLight = new THREE.PointLight( 0xffffff, 0.4, 350, 1);
 mainLight.position.y = 35;
 mainLight.position.z = 5;
 mainLight.castShadow = true;
 mainLight.shadow.mapSize.set( 1024, 1024 )
-// scene.add( mainLight );
+scene.add( mainLight );
 
 
 let sun_brightness = 1.0;
@@ -142,7 +143,7 @@ let ambient_brightness = 0.6;
 
 const sun = new THREE.PointLight( new THREE.Color("rgb(255,255,255)"), sun_brightness, 2000, 1);
 sun.castShadow = true;
-sun.shadow.mapSize.set( 2048, 2048 )
+sun.shadow.mapSize.set( 4096, 4096 )
 
 var sun_mesh = new THREE.Mesh(
     new THREE.SphereGeometry(20, 32, 32),
@@ -258,6 +259,11 @@ desk2.position.x = 35
 scene.add( desk );
 scene.add( desk2 );
 
+let door = new Door(40,80)
+door.position.x = -10
+door.position.y = -10
+door.position.z = 49
+scene.add(door)
 
 let panel1 = new WindowPanel(20, 20)
 panel1.position.z = -40
@@ -490,9 +496,9 @@ fbxLoader.load('data/MacBookPro.fbx', function(fbx) {
     macBookScreen.map = screenTexture
     macBookScreen.emissive = new THREE.Color(0xffffff)
     macBookScreen.emissiveMap = screenTexture
-    macBookScreen.emissiveIntensity = 0.2
+    macBookScreen.emissiveIntensity = 0.3
     macBookKeysBottom.emissive = new THREE.Color(0xffffff)
-    macBookKeysBottom.emissiveIntensity = 0.2
+    macBookKeysBottom.emissiveIntensity = 0.3
     macBookKeys.map = keysTexture
     macBookTopLine.map = TopLineTexture
     fbx.remove( Plane );
@@ -500,10 +506,10 @@ fbxLoader.load('data/MacBookPro.fbx', function(fbx) {
     fbx.rotateY(Math.PI)
     fbx.position.x = 0
     fbx.position.y = -22
-    fbx.position.z = -35
+    fbx.position.z = -37
     screenLight.position.x = 2
     screenLight.position.y = -12
-    screenLight.position.z = -33.5
+    screenLight.position.z = -35.5
     // fbx.add(screenLight)
     scene.add(fbx)
     scene.add(screenLight)

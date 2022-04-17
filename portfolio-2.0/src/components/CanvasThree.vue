@@ -17,8 +17,8 @@
 </template>
 <script>
 // import CameraControls from 'camera-controls'
-import {Raycaster, RepeatWrapping, EffectComposer, RenderPass, OutlinePass, LinearFilter, BoxGeometry, Vector2, Scene, Clock, OrbitControls, PerspectiveCamera, WebGLRenderer, Mesh, PlaneGeometry, MeshPhongMaterial, PointLight, AmbientLight, TextureLoader} from "three-full";
-// import {getCurrentInstance } from 'vue'
+import {Raycaster, Color, GLTFLoader, RepeatWrapping, EffectComposer, RenderPass, OutlinePass, LinearFilter, BoxGeometry, Vector2, Scene, Clock, OrbitControls, PerspectiveCamera, WebGLRenderer, Mesh, PlaneGeometry, MeshPhongMaterial, PointLight, AmbientLight, TextureLoader} from "three-full";
+// import {getCurrentInsGLTFLoadertance } from 'vue'
 import Desk from '@/threeJsComponents/desk'
 import BulletinBoard from '@/threeJsComponents/bulletinBoard'
 import {} from 'three-story-controls'
@@ -48,6 +48,7 @@ export default {
             this.mouse = new Vector2()
             this.clock = new Clock()
             this.scene = new Scene()
+            
             this.container = this.$refs.canvas
             // 60, width / height, 0.01, 100
             this.camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 1000 );
@@ -59,7 +60,8 @@ export default {
             this.renderer.shadowMap.enabled = true;
             this.renderer.setSize( window.innerWidth, window.innerHeight );
             this.composer = new EffectComposer(this.renderer)
-            
+            this.scene.background = new Color( 0xff0000 );
+
             const renderPass = new RenderPass( this.scene, this.camera );
             this.composer.addPass( renderPass );
 
@@ -129,7 +131,7 @@ export default {
             const planeTop = new Mesh( planeGeo, new MeshPhongMaterial( { color: 0xffffff } ) );
             planeTop.position.y = 50;
             planeTop.rotateX( Math.PI / 2 );
-            this.scene.add( planeTop );
+            // this.scene.add( planeTop );
 
             // const floor_texture = new TextureLoader().load("../src/assets/315.jpg");
             const loader = new TextureLoader();
@@ -174,7 +176,7 @@ export default {
             planeLeft.rotateY( Math.PI / 2 );
             this.scene.add( planeLeft );
 
-            const mainLight = new PointLight( 0xffffff, 0.5, 350, 1);
+            const mainLight = new PointLight( 0xffffff, 0.4, 350, 1);
             mainLight.position.y = 35;
             mainLight.position.z = 5;
             mainLight.castShadow = true;
@@ -193,9 +195,20 @@ export default {
             // // mainLight.shadow.blurSamples = 1000
             // this.scene.add( mainLight2 );
 
-            const light = new AmbientLight( 0xccccdd, 0.7 ); // soft white light
+            const light = new AmbientLight( 0xccccdd, 0.6 ); // soft white light
             this.scene.add( light );
             // light
+            this.loader = new GLTFLoader()
+            this.loader.load( require('../assets/models/plant.json'), function ( object ) {
+                console.log(object)
+                object.traverse( function ( child ) {
+                    if ( child.isMesh ) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                } );
+                this.scene.add( object );
+            } );
 
 // const table_width = 80;
 // const table_height = 30;
