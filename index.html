@@ -8,9 +8,16 @@
 		<meta name="author" content="">
 
         <script src="/vendor/momentjs/moment.js"></script>
-        <script src="/vendor/vue/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <script src="https://unpkg.com/vue-router@3.5.4/dist/vue-router.js"></script>
+        <script src="https://unpkg.com/vuex@2.0.0/dist/vuex.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+        <script src="https://unpkg.com/http-vue-loader"></script>
+    
+        <!-- <script src="/vendor/vue/vue.js"></script>
         <script src="/vendor/vue/httpVueLoader.js"></script>
-        <script src="/vendor/vue/axios.js"></script>
+        <script src="/vendor/vue/axios.js"></script> -->
+        <link rel="stylesheet" href="/index.css">
         <link rel="stylesheet" href="/vendor/vue/elementUI.css">
         <script src="/vendor/vue/elementUI.js"></script>
         <script src="/vendor/vue/en.js"></script>
@@ -38,31 +45,38 @@
 
 <body>
     <div id="app">
-        <home></home>
+        <router-view></router-view>
     </div>
 </body>
 	
 <script type="module">
-    httpVueLoader.httpRequest = function(url) {
-        return axios.get(url)
-        .then(function(res) {
-            return res.data;
-        })
-        .catch(function(err) {
-            return Promise.reject(err.status);
-        });
-    }
-
-    const vue = new Vue({
-        el: '#app',
-        components: {
-            'home': httpVueLoader("/static/vue/pages/home.vue"),
-        },
+    import store from "/static/vue/store/index.js"
+    import router from "/static/vue/router/index.js"
+    
+    var app = new Vue({
+        router: router,
+        store: store,
         data: function() {
-            return {
-                 
+            return { 
+                nav_open: true,
+                evtSource: null,
             }
         },
-    });
+        components: {
+
+        },
+        watch:{
+            $route (to, from){
+                console.log(to)
+                console.log(from)
+            }
+        },
+        created(){
+            // this.evtSource = new EventSource("/app/stream");
+            // this.evtSource.onmessage = console.log
+        }
+
+        
+    }).$mount('#app')
 </script>
 </html>
