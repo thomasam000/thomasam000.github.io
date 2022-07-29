@@ -42,7 +42,7 @@
 
 		<div ref="image_3" @mouseenter="hover = 'photos'" @mouseleave="hover = 'none'" @click="zoom_into_photos">
 			<div style="width:500px; height;400px; background-color:white; box-shadow: -1px 0px 30px -10px black;">
-				<img src="/assets/manson_website.jpg" width="480px;" style="margin-top:10px; margin-left:10px;" alt="">
+				<img src="/assets/phoenix_website.jpg" width="480px;" style="margin-top:10px; margin-left:10px;" alt="">
 				<div style="font-size:25px; padding:25px;">The BotFactory team ready to ship our most advanced PCB printer yet.</div>
 			</div>
 		</div>
