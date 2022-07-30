@@ -19,6 +19,7 @@ let whiteKeyz = {
       //the note/key
       if (keyIsPressed  && key === this.note[i]) {
         //and the frequency
+      userStartAudio()
      osc.freq(this.freq[i]);
         rect(this.xloc[i],203,50,180,0,0,6)
      osc.amp(0.5, 0.1);
@@ -45,7 +46,8 @@ let blackKeyz = {
       fill(this.color[j])
      rect(this.xloc[j],200,35,120,0,0,5)
       if (keyIsPressed  && key === this.note[j]) {
-     osc.freq(this.freq[j]);
+      userStartAudio()
+      osc.freq(this.freq[j]);
      osc.amp(0.5, 0.1);
      this.color[j] = 80;
       } else {

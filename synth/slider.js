@@ -1,7 +1,7 @@
 //slider object
 let slider = {
 xloc :90,
-yloc :50,
+yloc :90,
 w :30,
 h :20,
 light1: 0,
