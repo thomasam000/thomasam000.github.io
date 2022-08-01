@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="cursor:crosshair;">
 	<!-- <div style="z-index: 10000;" v-loading.fullscreen.lock="loading"></div> -->
 
 	<div style="position:relative; height:100vh;" >
@@ -14,6 +14,9 @@
 			<div><i class="arrow up"></i></div>
 			<div>Home</div>
 		</div> -->
+		<div style="width:100px; height: 25px; position:absolute; top:10px; left:10px;">
+			<div :style="{'width': power + 'px'}" style="background-color:red; height: 25px;"></div>
+		</div>
 	</div>
 
 	<div v-show="false">
@@ -213,6 +216,16 @@ module.exports = {
 			photo_box: null,
 			zoom_object: null,
 			hover: 'none',
+			physics_world: null,
+			rigidBodies: [],
+			transformAux1: null,
+			power: 1,
+			mouse_lifted: false,
+			mouseCoords: new THREE.Vector2(),
+			raycaster: new THREE.Raycaster(),
+			ballMaterial: new THREE.MeshPhongMaterial( { color: 0x202020 } ),
+			pos: new THREE.Vector3(),
+			quat: new THREE.Quaternion(),
 			thumbtacks: [
 				{x: 400, y: 220 },
 				{x: 800, y: 300 },
@@ -482,8 +495,58 @@ module.exports = {
 			// 	// const body = new THREE.Mesh( geometry, material );		
 
 			// })
+			// console.log(Ammo)
+			// that = this
+			// var temp_transform = new Ammo.btTransform()
+			// var collision_config = new Ammo.btDefaultCollisionConfiguration()
+			// var dispatcher = new Ammo.btCollisionDispatcher(collision_config)
+			// var overlapping_pair_cache = new Ammo.btDbvtBroadphase()
+			// var solver = new Ammo.btSequentialImpulseConstraintSolver()
+			// this.physics_world = new Ammo.btDiscreteDynamicsWorld(dispatcher, overlapping_pair_cache, solver, collision_config)
+			// this.physics_world.setGravity(new Ammo.btVector3( 0, - 9.8, 0 ))
+			// this.transformAux1 = new Ammo.btTransform();
+			// window.addEventListener( 'pointerdown', this.charge_dart)
 
-			
+			// window.addEventListener( 'pointerup', function ( event ) {
+			// 	that.mouse_lifted = true
+			// 	that.mouseCoords.set(
+			// 		( event.clientX / window.innerWidth ) * 2 - 1,
+			// 		- ( event.clientY / window.innerHeight ) * 2 + 1
+			// 	);
+
+			// 	that.raycaster.setFromCamera( that.mouseCoords, that.camera );
+
+			// 		// Creates a ball and throws it
+			// 	const ballMass = 100;
+			// 	const ballRadius = 0.4;
+			// 	const margin = 0.05;
+			// 	const ball = new THREE.Mesh( new THREE.SphereGeometry( ballRadius, 14, 10 ), that.ballMaterial );
+			// 	ball.castShadow = true;
+			// 	ball.receiveShadow = true;
+			// 	const ballShape = new Ammo.btSphereShape( ballRadius );
+			// 	ballShape.setMargin( margin );
+			// 	that.pos.copy( that.raycaster.ray.direction );
+			// 	that.pos.add( that.raycaster.ray.origin );
+			// 	that.quat.set( 0, 0, 0, 1 );
+			// 	const ballBody = that.createRigidBody( ball, ballShape, ballMass, that.pos, that.quat );
+
+			// 	that.pos.copy( that.raycaster.ray.direction );
+			// 	console.log(that.power)
+			// 	that.pos.multiplyScalar( that.power );
+			// 	var too_much_power = 0
+			// 	if (that.power > 80) {
+			// 		too_much_power =  ((that.power - 80) * (that.power - 80)) / 100
+			// 	}
+			// 	accuracy_x = (2*Math.random() - 1) * too_much_power
+			// 	accuracy_y = (2*Math.random() - 1) * too_much_power
+			// 	ballBody.setLinearVelocity( new Ammo.btVector3( that.pos.x + accuracy_x, that.pos.y + accuracy_y, that.pos.z ) );
+			// 	if (that.power > 100) {
+			// 		that.mouse_lifted = false
+			// 	}
+			// 	that.power = 1
+			// 	// that.mouse_lifted = false
+
+			// } );
 		},
         onWindowResize(){
             this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -514,14 +577,144 @@ module.exports = {
 			this.controls.setLookAt(this.camera.position.x, 0, 1000,  0, 0, 0, true)
 			this.controls.fitToBox(this.zoom_object, true, { paddingLeft: 50, paddingRight: 50, paddingBottom: 50, paddingTop: 50 })
 		},
+		// charge_dart() {
+		// 	that = this
+		// 	increase_power = function() {
+		// 		that.power = that.power * 1.05
+		// 		if (that.mouse_lifted) {
+		// 			that.mouse_lifted = false
+		// 			return
+		// 		} else {
+		// 			if (that.power > 100) {
+		// 				return 
+		// 			} else {
+		// 				setTimeout(increase_power, 10)
+		// 			}
+		// 		}
+		// 	}
+		// 	increase_power()
+		// },
+		// throw_dart() {
 
+		// },
 		animate: function() {
 			const delta = this.clock.getDelta();
 			this.controls.update( delta );
             this.renderer.render( this.scene, this.camera );
             this.renderer2.render( this.scene, this.camera );
+			// this.updatePhysics( delta );
 			requestAnimationFrame( this.animate );
 		},
+		// detectCollision(){
+
+		// 	let dispatcher = this.physics_world.getDispatcher();
+		// 	let numManifolds = dispatcher.getNumManifolds();
+
+		// 	for ( let i = 0; i < numManifolds; i ++ ) {
+
+		// 		let contactManifold = dispatcher.getManifoldByIndexInternal( i );
+		// 		let numContacts = contactManifold.getNumContacts();
+
+		// 		for ( let j = 0; j < numContacts; j++ ) {
+
+		// 			let contactPoint = contactManifold.getContactPoint( j );
+		// 			let distance = contactPoint.getDistance();
+		// 			console.log({manifoldIndex: i, contactIndex: j, distance: distance});
+		// 		}
+		// 	}
+		// },
+		// updatePhysics(deltaTime) {
+		// 	this.physics_world.stepSimulation( deltaTime, 10 );
+
+		// 	// Update rigid bodies
+		// 	for ( let i = 0, il = this.rigidBodies.length; i < il; i ++ ) {
+
+		// 		const objThree = this.rigidBodies[ i ];
+		// 		const objPhys = objThree.userData.physicsBody;
+		// 		const ms = objPhys.getMotionState();
+
+		// 		if ( ms ) {
+
+		// 			ms.getWorldTransform( this.transformAux1 );
+		// 			const p = this.transformAux1.getOrigin();
+		// 			const q = this.transformAux1.getRotation();
+		// 			objThree.position.set( p.x(), p.y(), p.z() );
+		// 			objThree.quaternion.set( q.x(), q.y(), q.z(), q.w() );
+
+		// 			objThree.userData.collided = false;
+
+		// 		}
+
+		// 	}
+		// 	this.detectCollision()
+		// },
+	// 	createRigidBody( object, physicsShape, mass, pos, quat, vel, angVel ) {
+
+	// 		if ( pos ) {
+
+	// 			object.position.copy( pos );
+
+	// 		} else {
+
+	// 			pos = object.position;
+
+	// 		}
+
+	// 		if ( quat ) {
+
+	// 			object.quaternion.copy( quat );
+
+	// 		} else {
+
+	// 			quat = object.quaternion;
+
+	// 		}
+
+	// 		const transform = new Ammo.btTransform();
+	// 		transform.setIdentity();
+	// 		transform.setOrigin( new Ammo.btVector3( pos.x, pos.y, pos.z ) );
+	// 		transform.setRotation( new Ammo.btQuaternion( quat.x, quat.y, quat.z, quat.w ) );
+	// 		const motionState = new Ammo.btDefaultMotionState( transform );
+
+	// 		const localInertia = new Ammo.btVector3( 0, 0, 0 );
+	// 		physicsShape.calculateLocalInertia( mass, localInertia );
+
+	// 		const rbInfo = new Ammo.btRigidBodyConstructionInfo( mass, motionState, physicsShape, localInertia );
+	// 		const body = new Ammo.btRigidBody( rbInfo );
+
+	// 		body.setFriction( 0.5 );
+
+	// 		if ( vel ) {
+
+	// 			body.setLinearVelocity( new Ammo.btVector3( vel.x, vel.y, vel.z ) );
+
+	// 		}
+
+	// 		if ( angVel ) {
+
+	// 			body.setAngularVelocity( new Ammo.btVector3( angVel.x, angVel.y, angVel.z ) );
+
+	// 		}
+
+	// 		object.userData.physicsBody = body;
+	// 		object.userData.collided = false;
+
+	// 		this.scene.add( object );
+
+	// 		if ( mass > 0 ) {
+
+	// 			this.rigidBodies.push( object );
+
+	// 			// Disable deactivation
+	// 			body.setActivationState( 4 );
+
+	// 		}
+
+	// 		this.physics_world.addRigidBody( body );
+
+	// 		return body;
+
+	// 	}
 
 	},
 	computed: {
@@ -543,11 +736,13 @@ module.exports = {
 </script>
 
 <style scoped>
+
 #three_container {
 	position:absolute;
 	top:0;
     height:100vh;
     width:100%;
+	cursor:crosshair;
 }
 .resume_container {
 	position:relative;

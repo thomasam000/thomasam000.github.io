@@ -1,5 +1,5 @@
 var Home = httpVueLoader("/static/vue/pages/home.vue")
-var Synth = httpVueLoader("/static/vue/pages/synth.vue")
+var Darts = httpVueLoader("/static/vue/pages/darts.vue")
 
 
 const routes = [
@@ -8,11 +8,11 @@ const routes = [
         component: Home,
         name: 'Home',
     },
-    // {
-    //     path: '/piano', 
-    //     component: Synth,
-    //     name: 'Synth',
-    // },
+    {
+        path: '/darts', 
+        component: Darts,
+        name: 'Darts',
+    },
     // {
     //     path: '/:catchAll(.*)*',
     //     name: "Home",
@@ -22,6 +22,6 @@ const routes = [
 
 export default new VueRouter({
     routes,
-    mode: 'history',
+    // mode: 'history',
 
 })
