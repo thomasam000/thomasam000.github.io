@@ -127,13 +127,14 @@
 				<li>Participated in regular SCRUM meetings with the R&D (research and development) team.</li>
 				<li>Contributed in redesigning a python software architecture and migrating the codebase from python 2 to 3.</li>
 				<li>Fixed bugs, added features and wrote tests for the software of PCB printers.</li>
+				<li>Worked with the team to redesign the python software architecture and migrate the existing codebase from python 2 to 3.</li>
 				</ul>
 				<p>ODOO DEVELOPER/INTERN - BotFactory <br>Feb 2020 - Aug 2020</p>
 				<ul>
 				<li>Created a blog and web page versioning tool, to keep track and restore previous iterations of web pages and blog posts.</li>
 				<li>Improved customer support and sales experience by implementing email automation, and email tracking with webhooks.</li>
 				<li>Took a major role in Managing the ERP, CMS, and CRM of the company.</li>
-				<li>Created web pages such as a customer support form to create support tickets and validate serial numbers with the server.</li>
+				<li>Created reusable components using the qweb framework to be used in the Botfactory website using responsive design.</li>
 				</ul>
 				<p>SOFTWARE TUTOR - Self-Employed <br>October 2019 - July 2020</p>
 				<ul>
@@ -153,29 +154,30 @@
 				<div class="container">
 				<div class="row">
 					<div class="col-6 col-md-4 skill">Front End Web Dev (Vue)<br>● ● ● ● ●<br></div>
-					<div class="col-6 col-md-4 skill">Web App Development with Spring Web MVC, Spring JDBC<br>● ● ● ● ●<br></div>
-					<div class="col-6 col-md-4 skill">HTML, CSS, JavaScript, jQuery and Bootstrap with Responsive Design<br>● ● ● ● ⚬<br></div>
+					<div class="col-6 col-md-4 skill">Fullstack Web App Dev with Spring Web MVC<br>● ● ● ● ●<br></div>
+					<div class="col-6 col-md-4 skill">HTML, CSS, JavaScript, with Responsive Design<br>● ● ● ● ⚬<br></div>
 					<div class="col-6 col-md-4 skill">Test-driven Development<br>● ● ● ● ⚬<br></div>
 					<div class="col-6 col-md-4 skill">Version Control System (GitHub)<br>● ● ● ● ⚬<br></div>
-					<div class="col-6 col-md-4 skill">Data Structures<br>● ● ● ⚬ ⚬ <br></div>
+					<div class="col-6 col-md-4 skill">Data Structures<br>● ● ● ⚬ ⚬ <br></div>
 				</div>
 				</div>
 
 				<br>
-				<div style="text-align:left;"><h4>Skills</h4></div>
+				<div style="text-align:left;"><h4>Languages</h4></div>
 				<hr>
 				<div class="container">
 				<div class="row">
 					<div class="col-6 col-md-3 skill">JavaScript<br>● ● ● ● ●</div>
 					<div class="col-6 col-md-3 skill">HTML/CSS<br>● ● ● ● ●<br></div>
 					<div class="col-6 col-md-3 skill">Python<br>● ● ● ● ⚬<br></div>
+					<div class="col-6 col-md-3 skill">MySQL/MongoDB<br>● ● ● ● ⚬<br></div>
 					<div class="col-6 col-md-3 skill">Java<br>● ● ● ⚬ ⚬<br></div>
 				</div>
 				</div>
 				<br>
 				<h4>Education</h4>
 				<hr>
-				<div>Vue School - Vue.js certification<br>Feb 2022</div>
+				<div>Vue School - Vue.js certification<br>March 2022 - July 2022</div>
 				<br>
 				<div>THE SOFTWARE GUILD - Full Stack Java Boot Camp<br>March 2019 – November 2019</div>
 				<br>
