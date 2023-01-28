@@ -70,6 +70,10 @@
 			<img src="/assets/tictactoe.png" alt="" class="sticky_note_drawing">
 		</div>
 
+		<div ref="sticky_note6" class="sticky_note" style="background-color: #58caee;" @mouseenter="hover = 'darts'" @mouseleave="hover = 'none'" @click="$router.push('/darts')">
+			<img src="/assets/darts.png" alt="" class="sticky_note_drawing">
+		</div>
+
 		<!-- fieldsets for when i hover over something -->
 		<div ref="resume_fieldset">
 			<fieldset style="width:1100px; height:1450px; " v-if="hover == 'resume' && zoom_object == bulletin_board">
@@ -98,6 +102,12 @@
 		<div ref="synth_fieldset">
 			<fieldset style="width:450px; height:500px; " v-if="hover == 'synth' && zoom_object == bulletin_board">
 				<legend style="padding 50px 0;">Mini Synth</legend>
+			</fieldset>
+		</div>
+
+		<div ref="darts_fieldset">
+			<fieldset style="width:450px; height:500px; " v-if="hover == 'darts' && zoom_object == bulletin_board">
+				<legend style="padding 50px 0;">Darts Game</legend>
 			</fieldset>
 		</div>
 
@@ -200,6 +210,7 @@ module.exports = {
     props: ['layers', 'job_index', 'type'],
   	data() {
     	return {
+			// fbxloader: new THREE.fbxloader(),
 			loading: true,
 			container: null,
 			contours: null,
@@ -226,6 +237,8 @@ module.exports = {
 			ballMaterial: new THREE.MeshPhongMaterial( { color: 0x202020 } ),
 			pos: new THREE.Vector3(),
 			quat: new THREE.Quaternion(),
+			light_switch:null,
+			wall:null,
 			thumbtacks: [
 				{x: 400, y: 220 },
 				{x: 800, y: 300 },
@@ -278,11 +291,26 @@ module.exports = {
 			var ambientlight = new THREE.AmbientLight( 0xffffff, 0.6 );
 			var directionlight = new THREE.DirectionalLight( 0xffffff, 0.4 );
 			var directionlight2 = new THREE.DirectionalLight( 0xffffff, 0.4 );
+			// var spotLight = new THREE.SpotLight( 0xffffff, 1.0);
+			// spotLight.position.set( 0, 0, 0 );
+
+			// spotLight.castShadow = true;
+
+			// spotLight.shadow.mapSize.width = 1024;
+			// spotLight.shadow.mapSize.height = 1024;
+
+			// spotLight.shadow.camera.near = 500;
+			// spotLight.shadow.camera.far = 4000;
+			// spotLight.shadow.camera.fov = 30;			
+			
 			directionlight.position.set(-500, 0, 1000)
 			directionlight2.position.set(0, 10000, 2000)
+			
+
 			this.scene.add( ambientlight );
 			this.scene.add( directionlight );
 			this.scene.add( directionlight2 );
+			// this.scene.add( spotLight );
 
 			// initialize bulletin board
 			var geometry = new THREE.PlaneGeometry( 3600, 2400 );
@@ -292,6 +320,12 @@ module.exports = {
 			material.transparent = true
 			this.bulletin_board = new THREE.Mesh( geometry, material );
 			this.scene.add( this.bulletin_board );
+
+
+			var geometry = new THREE.PlaneGeometry( 10000, 10000 );
+			var material = new THREE.MeshPhongMaterial( {color: 0xffffff} );
+			this.wall = new THREE.Mesh( geometry, material );
+			this.scene.add( this.wall );
 
 			//initialize resume
 			var geometry = new THREE.PlaneGeometry( 1000, 1250 );
@@ -393,6 +427,16 @@ module.exports = {
 			synthFieldSet.rotation.z = -0.1
 			this.scene.add(synthFieldSet)
 
+			var darts_fieldset_div = this.$refs.darts_fieldset
+			const darts_fieldset = new THREE.CSS3DObject( darts_fieldset_div );
+			darts_fieldset.position.x = 0
+			darts_fieldset.position.y = 0
+			darts_fieldset.position.z = 2
+			darts_fieldset.rotation.z = 0.05
+			this.scene.add(darts_fieldset)
+
+			
+
 			var sticky_note = this.$refs.sticky_note1
 			var sticky_note_obj = new THREE.CSS3DObject( sticky_note );
 			sticky_note_obj.position.x = 0
@@ -432,6 +476,14 @@ module.exports = {
 			sticky_note_obj.rotation.z = 0.1
 			this.scene.add(sticky_note_obj)
 
+			sticky_note = this.$refs.sticky_note6
+			sticky_note_obj = new THREE.CSS3DObject( sticky_note );
+			sticky_note_obj.position.x = 0
+			sticky_note_obj.position.y = 0
+			sticky_note_obj.position.z = 2
+			sticky_note_obj.rotation.z = 0.05
+			this.scene.add(sticky_note_obj)
+
 			// initialize push pins
 			this.thumbtacks.forEach(obj => {
 				var element = document.createElement('div');
@@ -454,6 +506,15 @@ module.exports = {
 			this.table.position.y = -1500
 			this.table.position.z = 1000
 			this.scene.add(this.table)
+
+			// const light_switch_geometry = this.createBoxWithRoundedEdges(400, 600, 40, 20, 20)
+			// var light_switch_material = new THREE.MeshPhongMaterial( {color: 0xeeeedf} );
+			// this.light_switch = new THREE.Mesh( light_switch_geometry, light_switch_material );
+			// this.light_switch.position.x = -2250
+			// this.light_switch.position.y = -750
+			// this.scene.add(this.light_switch)
+
+
 
 			// zoom to fit on load
 			this.zoom_object = this.bulletin_board
@@ -557,6 +618,9 @@ module.exports = {
 				this.controls.fitToBox(this.zoom_object, true, { paddingLeft: 100, paddingRight: 100, paddingBottom: 100, paddingTop: 100 })
 			}
         },
+		onMouseMove() {
+
+		},
 		zoom_to(target) {
 			this.hover = 'none'
 			this.zoom_object = target
@@ -576,6 +640,28 @@ module.exports = {
 			this.zoom_object = this.bulletin_board
 			this.controls.setLookAt(this.camera.position.x, 0, 1000,  0, 0, 0, true)
 			this.controls.fitToBox(this.zoom_object, true, { paddingLeft: 50, paddingRight: 50, paddingBottom: 50, paddingTop: 50 })
+		},
+		createBoxWithRoundedEdges( width, height, depth, radius0, smoothness ) {
+			let shape = new THREE.Shape();
+			let eps = 0.00001;
+			let radius = radius0 - eps;
+			shape.absarc( eps, eps, eps, -Math.PI / 2, -Math.PI, true );
+			shape.absarc( eps, height -  radius * 2, eps, Math.PI, Math.PI / 2, true );
+			shape.absarc( width - radius * 2, height -  radius * 2, eps, Math.PI / 2, 0, true );
+			shape.absarc( width - radius * 2, eps, eps, 0, -Math.PI / 2, true );
+			let geometry = new THREE.ExtrudeBufferGeometry( shape, {
+				amount: depth - radius0 * 2,
+				bevelEnabled: true,
+				bevelSegments: smoothness * 2,
+				steps: 1,
+				bevelSize: radius,
+				bevelThickness: radius0,
+				curveSegments: smoothness
+			});
+  
+		geometry.center();
+		
+		return geometry;
 		},
 		// charge_dart() {
 		// 	that = this
@@ -725,6 +811,7 @@ module.exports = {
 	},
  	async mounted() {
         window.addEventListener( 'resize', this.onWindowResize, false );
+        window.addEventListener( 'mousemove', this.onMouseMove, false );
 
 		this.container = this.$refs.container
 		this.init();
