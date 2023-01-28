@@ -27,7 +27,8 @@
         <script type="text/javascript" src="/vendor/three_js/three.js"></script>
         <script type="text/javascript" src="/vendor/three_js/cameraControls.js"></script>
         <script type="text/javascript" src="/vendor/three_js/CSSRenderer.js"></script>
-        
+        <script type="text/javascript" src="/vendor/three_js/ammo.js"></script>
+        <script src=" https://cdn.jsdelivr.net/npm/threejs-fbxloader@0.0.1/index.min.js "></script>
         <!-- <script src="/synth/p5.min.js"></script>
         <script src="/synth/p5.dom.min.js"></script>
         <script src="/synth/p5.sound.min.js"></script> -->
@@ -56,13 +57,17 @@
 
 <body>
     <div id="app">
-        <router-view></router-view>
-    </div>
+        <!-- <transition :name="slide"> -->
+            <router-view></router-view>
+          <!-- </transition>     -->
+        </div>
 </body>
 	
 <script type="module">
     import store from "/static/vue/store/index.js"
     import router from "/static/vue/router/index.js"
+    import { FBXLoader } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/loaders/FBXLoader';
+    THREE.FBXLoader = FBXLoader
     
     var app = new Vue({
         router: router,
